@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StoreDataLayer.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace StoreDataLayer
 {
@@ -18,9 +20,18 @@ namespace StoreDataLayer
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// ASP.NET Core impements dependency injection. 
+        ///     Read more: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection
+        ///
+        /// Registers StoreDbContext as a service. The name of the connection string is passed in to the context by calling a method on a DbContextOptionsBuilder object.
+        ///     For local development the configuration system reads the connection from the ./appsettings.json
+        /// </summary>
+       // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<StoreDbContext>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
         }
 
