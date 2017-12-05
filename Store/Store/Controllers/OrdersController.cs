@@ -11,7 +11,7 @@ using StoreDataLayer.Models;
 namespace StoreDataLayer.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Orders")]
+    [Route("api/[controller]")]
     public class OrdersController : Controller
     {
         private readonly StoreDbContext _context;

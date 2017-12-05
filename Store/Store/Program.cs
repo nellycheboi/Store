@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using StoreDataLayer.Data;
 
 namespace Store
 {
@@ -14,7 +11,25 @@ namespace Store
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+            // Get the dataabase instance from the dependency injection container.
+            // Call the seed method, passing to it the context
+            // Dispose the context when the seed method is done
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<StoreDbContext>();
+                    DbIntializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occured while seeding the database.");
+                }
+            }
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
