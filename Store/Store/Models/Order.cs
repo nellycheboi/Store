@@ -41,6 +41,8 @@ namespace StoreDataLayer.Models
         [Required]
         [DisplayName("Zip Code")]
         public string ZipCode { get; set; }
+
+        public string RowNumber { get; set; }
         
         /// <summary>
         /// Navigation Property. User entity holds the information of the associated User.
