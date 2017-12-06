@@ -21,12 +21,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\components\order\order.componet.ts" />
+    <None Remove="ClientApp\app\components\messages\message.component.ts" />
+    <None Remove="ClientApp\app\models\user.ts" />
+    <None Remove="ClientApp\app\services\message.service.ts" />
+    <None Remove="ClientApp\app\services\order.service.ts" />
+    <None Remove="ClientApp\app\services\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\order\order.componet.ts" />
+    <TypeScriptCompile Include="ClientApp\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\messages\message.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\order\order.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\user\user.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\order.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\user.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\message.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\order.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\user.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

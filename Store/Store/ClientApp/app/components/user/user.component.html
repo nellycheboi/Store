@@ -1,1 +1,26 @@
-﻿{{ users }}
+﻿<app-messages></app-messages>
+<!-- We use the async pipe to automatically subscribe/unsubscribe to our observable -->
+<ul class="user__list" *ngIf="(users$ | async).length">
+    <li class="user" *ngFor="let user of users$ | async">
+        {{ user.firstName }}, {{ user.lastName }}
+        <a routerLink="/detail/{{user.id}}"></a>
+      </li>
+</ul>
+
+<nav>
+    <a routerLink="/orders">Orders</a>
+</nav>
+
+// Todo
+<button (click)="save()">save</button>
+
+<div>
+    <label>
+        First Name:
+        <input #firstName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(firstName.value); firstName.value=''">
+        add
+    </button>
+</div>

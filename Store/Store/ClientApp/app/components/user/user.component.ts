@@ -1,5 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { User } from '../../models/user';
+
+import { UserService } from '../../services/user.service'
+import { Observable } from "rxjs/Observable";
+
+
 
 
 @Component({
@@ -9,25 +14,43 @@ import { HttpClient } from "@angular/common/http";
 
 })
 export class UserComponent implements OnInit {
-    public users: User;
+    user: User;
+    public users$: Observable<User[]>;
 
-    // Injecting HttpClient. 
-    // angular requires injection into components to be public
-    constructor(public http: HttpClient) { }
+    // Injecting UserService. 
+    // the constructor defines a userService property and further identifies it as a UserService injection
+    // The constructor is reserved for simple intiliization.
+    // ngOnInit other heavy duty setup i.e HTTP requests.
+    constructor(private userService: UserService) { }
 
-    // The response body doesn't return all the data you may need. Sometimes servers return special headers or status codes to indicate certain conditions, and inspecting those can be necessary. To do this, you can tell HttpClient you want the full response instead of just the body with the observe option:
-    // https://angular.io/guide/http#making-a-request-for-json-data
-    ngOnInit(): void {
-        this.http.get<User>('/api/users', { observe: 'response' }).subscribe(result => {
-            // Read the result field from the JSON response.
-            this.users = result.body;
-        }, error => console.error(error));
-     
-       
+
+    ngOnInit() {
+        this.getUsers();
     }
-}
 
-interface User {
-    firstName: string;
-    lastName: string;
+    // observable is subscribe in the template using async pipe.
+    // with this angular deals with the subscription during the
+    // the lifecycle of the component.
+    // read more : https://hackernoon.com/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
+    // we are making a call to userService getUsers which returns 
+    // an observable that we assing to the users$ property of this class.
+    // It is best practice to use $ in observable instance
+    getUsers(): void {
+        this.users$ = this.userService.getUsers();
+    }
+
+    save(): void {
+        this.userService.updateUser(this.user)
+            .subscribe(() => this.goBack());
+    }
+    // Todo https://angular.io/tutorial/toh-pt6#add-a-new-hero
+    add(firstName: string): void {
+        firstName = firstName.trim();
+        if (!firstName) { return; }
+        this.userService.addUser({ firstName }} as User)
+            .subscribe(user => {
+                this.users$.push(user);
+        });
+    }
+
 }

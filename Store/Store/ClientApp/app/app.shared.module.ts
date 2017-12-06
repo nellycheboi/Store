@@ -10,6 +10,13 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { UserComponent } from './components/user/user.component';
+import { OrderComponent } from './components/order/order.component';
+
+import { AppRoutingModule } from './app-routing.module'
+
+import { UserService } from './services/user.service';
+import { OrderService } from './services/order.service';
+import { MessageService } from './services/message.service'
 
 @NgModule({
     declarations: [
@@ -18,20 +25,17 @@ import { UserComponent } from './components/user/user.component';
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        UserComponent
+        UserComponent,
+        OrderComponent
     ],
+    // create a single instance of the following service and make them available to any class that asks for it
+    providers: [UserService, OrderService, MessageService],
     imports: [
         CommonModule,
         HttpModule,
         FormsModule,
-        RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'users',  component: UserComponent },
-            { path: '**', redirectTo: 'home' }
-        ])
+        AppRoutingModule,
+
     ]
 })
 export class AppModuleShared {
