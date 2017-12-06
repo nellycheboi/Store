@@ -9,7 +9,7 @@ export class HomeComponent {
     public users: User[];
 
     constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
-        http.get(baseUrl + 'api/Users').subscribe(result => {
+        http.get(baseUrl + 'api/orders').subscribe(result => {
             this.users = result.json() as User[];
         }, error => console.error(error));
     }

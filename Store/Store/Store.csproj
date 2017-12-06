@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\components\messages\message.component.ts" />
     <None Remove="ClientApp\app\models\user.ts" />
     <None Remove="ClientApp\app\services\message.service.ts" />
     <None Remove="ClientApp\app\services\order.service.ts" />
@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\app-routing.module.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\messages\message.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\messages\messages.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\order\order.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\user\user.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\order.ts" />

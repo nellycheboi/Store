@@ -35,18 +35,18 @@ export class OrderComponent implements OnInit {
         this.orders$ = this.orderService.getOrders();
     }
 
-    save(): void {
-        this.orderService.updateOrder(this.order)
-            .subscribe(() => this.goBack());
-    }
-    // Todo
-    add(name: string): void {
-        name = name.trim();
-        if (!name) { return; }
-        this.orderService.addOrder({ name } as Order)
-            .subscribe(order => {
-                this.orders$.push(order);
-            });
-    }
+    //save(): void {
+    //    this.orderService.updateOrder(this.order)
+    //        .subscribe(() => this.goBack());
+    //}
+    //// Todo
+    //add(name: string): void {
+    //    name = name.trim();
+    //    if (!name) { return; }
+    //    this.orderService.addOrder({ name } as Order)
+    //        .subscribe(order => {
+    //            this.orders$.push(order);
+    //        });
+    //}
 
 }

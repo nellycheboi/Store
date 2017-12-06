@@ -57,7 +57,7 @@ namespace StoreDataLayer.Data
             {
                 context.Users.Add(user);
             }
-            context.SaveChanges();
+            //context.SaveChanges();
 
             Order[] orders = new Order[]
             {

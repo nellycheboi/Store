@@ -20,6 +20,8 @@ namespace StoreDataLayer.Models
         [Column("last_name")]
         public string LastName { get; set;  }
 
+        public string RowNumber { get; set; }
+
         /// <summary>
         /// A naviagation property. It holds all the orders entities associated to the given user.
         /// A User and Order have one-to-many relationship. 

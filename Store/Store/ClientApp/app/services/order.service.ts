@@ -21,9 +21,8 @@ export class OrderService {
     // asynchronous signature
     // returns an Observalbe of orders
     getOrders(): Observable<Order[]> {
-        return this.http.get<Order[]>(this.ordersUrl)
-            .pipe(catchError(this.handleError('getOrders', []))
-            );
+        return this.http.get<Order[]>(this.ordersUrl);
+            
     }
 
     // construct a request url with the desired order id

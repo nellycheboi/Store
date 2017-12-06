@@ -39,18 +39,18 @@ export class UserComponent implements OnInit {
         this.users$ = this.userService.getUsers();
     }
 
-    save(): void {
-        this.userService.updateUser(this.user)
-            .subscribe(() => this.goBack());
-    }
+    //save(): void {
+    //    this.userService.updateUser(this.user)
+    //        .subscribe(() => this.goBack());
+    //}
     // Todo https://angular.io/tutorial/toh-pt6#add-a-new-hero
-    add(firstName: string): void {
-        firstName = firstName.trim();
-        if (!firstName) { return; }
-        this.userService.addUser({ firstName }} as User)
-            .subscribe(user => {
-                this.users$.push(user);
-        });
-    }
+    //add(firstName: string): void {
+    //    firstName = firstName.trim();
+    //    if (!firstName) { return; }
+    //    this.userService.addUser({{ firstName }} as User)
+    //        .subscribe(user => {
+    //            this.users$.push(user);
+    //    });
+    //}
 
 }
