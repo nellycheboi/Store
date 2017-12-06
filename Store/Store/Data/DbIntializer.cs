@@ -64,7 +64,7 @@ namespace StoreDataLayer.Data
                 new Order
                 {
                     TrackingId = "123",
-                    UserID = 1,
+                    UserId = 1,
                     AddressName = "Home",
                     StreetAddress = "1212 N Corner Street",
                     City = "Big City",
@@ -74,7 +74,7 @@ namespace StoreDataLayer.Data
                 new Order
                 {
                     TrackingId = "1234",
-                    UserID = 1,
+                    UserId = 1,
                     AddressName = "Home",
                     StreetAddress = "1212 N Corner Street",
                     City = "Big City",
@@ -84,7 +84,7 @@ namespace StoreDataLayer.Data
                 new Order
                 {
                     TrackingId = "12345",
-                    UserID = 1,
+                    UserId = 1,
                     AddressName = "Home",
                     StreetAddress = "1212 N Corner Street",
                     City = "Big City",
@@ -94,7 +94,7 @@ namespace StoreDataLayer.Data
                 new Order
                 {
                     TrackingId = "234",
-                    UserID = 2,
+                    UserId = 2,
                     AddressName = "Home",
                     StreetAddress = "1212 N Mobius Corner",
                     City = "Big City",
@@ -104,7 +104,7 @@ namespace StoreDataLayer.Data
                 new Order
                 {
                     TrackingId = "2345",
-                    UserID = 2,
+                    UserId = 2,
                     AddressName = "Home",
                     StreetAddress = "1212 N Mobius Corner",
                     City = "Big City",
@@ -114,7 +114,7 @@ namespace StoreDataLayer.Data
                 new Order
                 {
                     TrackingId = "345",
-                    UserID = 3,
+                    UserId = 3,
                     AddressName = "Home",
                     StreetAddress = "1212 N Linked Corner",
                     City = "Big City",
@@ -124,7 +124,7 @@ namespace StoreDataLayer.Data
                 new Order
                 {
                     TrackingId = "456",
-                    UserID = 4,
+                    UserId = 4,
                     AddressName = "Home",
                     StreetAddress = "1212 N Around The Corner",
                     City = "Big City",
@@ -134,7 +134,7 @@ namespace StoreDataLayer.Data
                 new Order
                 {
                     TrackingId = "567",
-                    UserID = 5,
+                    UserId = 5,
                     AddressName = "Home",
                     StreetAddress = "1212 N Straight Corner",
                     City = "Big City",

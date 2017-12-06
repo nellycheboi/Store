@@ -16,7 +16,10 @@ import { Observable } from "rxjs/Observable";
 export class UserComponent implements OnInit {
     user: User;
     public users$: Observable<User[]>;
-
+    toggleForm = false;
+    submitted = false;
+    onSubmit() { this.submitted = true; }
+  
     // Injecting UserService. 
     // the constructor defines a userService property and further identifies it as a UserService injection
     // The constructor is reserved for simple intiliization.

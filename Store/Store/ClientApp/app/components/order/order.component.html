@@ -1,14 +1,47 @@
-﻿<app-messages></app-messages>
+﻿<h2>Our Orders</h2>
+
+<app-messages></app-messages>
 <!-- We use the async pipe to automatically subscribe/unsubscribe to our observable -->
-<ul class="list-group" *ngIf="(orders$ | async).length">
-    <li class="list-group-item" *ngFor="let order of orders$ | async">
-        {{ order.city }}, {{ order.addressName }}
-        <a routerLink="/detail/{{order.trackingId}}"></a>
-    </li>
-</ul>
+<a (click)="add()">Add Order</a>
 
-<nav>
-    <a routerLink="/users">Orders</a>
-</nav>
 
-<button (click)="save()">save</button>
+
+<div>
+    <label>
+        Search:
+        <input #filter />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+
+</div>
+
+<table class='table'  *ngIf="(orders$ | async).length">
+    <thead>
+        <tr>
+            <th>Tracking Id</th>
+            <th>User ID</th>
+            <th>Address Name</th>
+            <th>Street Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders$ | async">
+            <td> {{ order.trackingId}} </td>
+            <td> {{ order.userId }} </td>
+            <td> {{ order.addressName}} </td>
+            <td> {{ order.streetAddress}} </td>
+            <td> {{ order.city }} </td>
+            <td> {{ order.state }} </td>
+            <td> {{ order.zipCode}} </td>
+            <td>
+                <a routerLink="/detail/{{ order.trackingId }}">Detail</a> |
+                <a (click)="edit()">Edit</a> |
+                <a (click)="delete()">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

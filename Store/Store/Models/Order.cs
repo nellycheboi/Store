@@ -17,7 +17,7 @@ namespace StoreDataLayer.Models
         [ForeignKey("user_id")]
         [Column("user_id")]
         [Required]
-        public int UserID { get; set; }
+        public int UserId { get; set; }
 
         // Address information. Refactoring notes: Should belong in a different table
 
