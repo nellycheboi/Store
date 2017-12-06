@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using StoreDataLayer.Data;
 using System;
 
-namespace StoreDataLayer.Migrations
+namespace Store.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20171205004359_InitialCreate")]
+    [Migration("20171206070027_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,8 @@ namespace StoreDataLayer.Migrations
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnName("city");
+
+                    b.Property<string>("RowNumber");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -71,6 +73,8 @@ namespace StoreDataLayer.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnName("order_id");
+
+                    b.Property<string>("RowNumber");
 
                     b.HasKey("ID");
 

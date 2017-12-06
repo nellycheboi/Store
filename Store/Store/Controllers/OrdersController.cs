@@ -25,6 +25,7 @@ namespace StoreDataLayer.Controllers
         [HttpGet]
         public IEnumerable<Order> GetOrders()
         {
+
             return _context.Orders;
         }
 

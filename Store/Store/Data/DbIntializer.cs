@@ -57,83 +57,91 @@ namespace StoreDataLayer.Data
             {
                 context.Users.Add(user);
             }
-            //context.SaveChanges();
+            context.SaveChanges();
 
             Order[] orders = new Order[]
-            {
+              {
                 new Order
                 {
                     TrackingId = "123",
-                    UserID = users[0].ID,
+                    UserID = 1,
                     AddressName = "Home",
                     StreetAddress = "1212 N Corner Street",
                     City = "Big City",
+                    ZipCode = "98765",
                     State = "Big Country"
                 },
                 new Order
                 {
                     TrackingId = "1234",
-                    UserID = users[0].ID,
+                    UserID = 1,
                     AddressName = "Home",
                     StreetAddress = "1212 N Corner Street",
                     City = "Big City",
+                    ZipCode = "98765",
                     State = "Big Country"
                 },
                 new Order
                 {
                     TrackingId = "12345",
-                    UserID = users[0].ID,
+                    UserID = 1,
                     AddressName = "Home",
                     StreetAddress = "1212 N Corner Street",
                     City = "Big City",
+                    ZipCode = "98765",
                     State = "Big Country"
                 },
                 new Order
                 {
                     TrackingId = "234",
-                    UserID = users[1].ID,
+                    UserID = 2,
                     AddressName = "Home",
                     StreetAddress = "1212 N Mobius Corner",
                     City = "Big City",
+                    ZipCode = "98765",
                     State = "Big Country"
                 },
                 new Order
                 {
                     TrackingId = "2345",
-                    UserID = users[1].ID,
+                    UserID = 2,
                     AddressName = "Home",
                     StreetAddress = "1212 N Mobius Corner",
                     City = "Big City",
+                    ZipCode = "98765",
                     State = "Big Country"
                 },
                 new Order
                 {
                     TrackingId = "345",
-                    UserID = users[2].ID,
+                    UserID = 3,
                     AddressName = "Home",
                     StreetAddress = "1212 N Linked Corner",
                     City = "Big City",
+                    ZipCode = "98765",
                     State = "Big Country"
                 },
                 new Order
                 {
                     TrackingId = "456",
-                    UserID = users[3].ID,
+                    UserID = 4,
                     AddressName = "Home",
                     StreetAddress = "1212 N Around The Corner",
                     City = "Big City",
+                    ZipCode = "98765",
                     State = "Big Country"
                 },
                 new Order
                 {
                     TrackingId = "567",
-                    UserID = users[4].ID,
+                    UserID = 5,
                     AddressName = "Home",
                     StreetAddress = "1212 N Straight Corner",
                     City = "Big City",
+                    ZipCode = "98765",
                     State = "Big Country"
                 }
-            };
+              };
 
             foreach (Order order in orders)
             {
