@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { MarkdownModule } from 'angular2-markdown';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
 import { UserComponent } from './components/user/user.component';
 import { OrderComponent } from './components/order/order.component';
 import {MessagesComponent } from './components/messages/messages.component';
@@ -23,8 +22,6 @@ import { MessageService } from './services/message.service'
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
         HomeComponent,
         UserComponent,
         OrderComponent,
@@ -37,6 +34,7 @@ import { MessageService } from './services/message.service'
         HttpModule,
         FormsModule,
         AppRoutingModule,
+        MarkdownModule.forRoot(),
 
     ]
 })

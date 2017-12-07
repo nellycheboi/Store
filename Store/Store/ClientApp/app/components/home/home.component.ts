@@ -1,22 +1,26 @@
-import { Component, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html'
+    template: `
+    <markdown [data]="content"></markdown>
+    `,
 })
 export class HomeComponent {
-    public users: User[];
+    public readMeUrl  = 'https://api.github.com/nellycheboi12/Store/master/README.md';
+    content: any;
+    constructor(private http: Http)  {
+        
+    }
+    ngOnInit()  {
+        this.getReadMeContent();
+    }
 
-    constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
-        http.get(baseUrl + 'api/orders').subscribe(result => {
-            this.users = result.json() as User[];
-        }, error => console.error(error));
+    getReadMeContent() : void {
+       this.http.get(this.readMeUrl).subscribe(result => {
+            this.content = "";
+        });
     }
 }
 
-interface User {
-    firstName: string;
-    lastName: string;
-}
 

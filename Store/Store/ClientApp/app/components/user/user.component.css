@@ -1,4 +1,7 @@
-﻿.navbar .nav > li.toolbaritem > a {
+﻿h2 {
+    margin: 1em 0;
+}
+.navbar .nav > li.toolbaritem > a {
     font-weight: bold;
 }
 

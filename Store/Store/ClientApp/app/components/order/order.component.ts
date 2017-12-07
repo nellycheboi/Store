@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Order } from '../../models/order';
 import { Observable } from 'rxjs/Observable';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 import { OrderService } from '../../services/order.service'
 
 @Component({
@@ -15,8 +14,6 @@ export class OrderComponent implements OnInit {
     public orders$: Observable<Order[]>;
     formResetToggle: boolean = true;
 
-    @ViewChild('editorModal')
-    editorModal: ModalDirective;
 
     // Inject OrderService. 
     // the constructor defines a orderService property and further identifies it as a OrderService injection
@@ -46,7 +43,7 @@ export class OrderComponent implements OnInit {
             this.formResetToggle = true;
 
             //this.taskEdit = {};
-            this.editorModal.show();
+            //this.editorModal.show();
         });
     }
     //save(): void {

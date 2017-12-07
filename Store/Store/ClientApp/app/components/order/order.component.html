@@ -1,30 +1,29 @@
-﻿<h2>Our Orders</h2>
+﻿<div class="row">
+    <div class="col-md-12 text-left">
+        <h2>Our Orders</h2>
+    </div>
+</div>
+
 
 <app-messages></app-messages>
 <!-- We use the async pipe to automatically subscribe/unsubscribe to our observable -->
-<a (click)="add()">Add Order</a>
 
 
 
 <div class="row control-box">
-    <div class="col-sm-8">
-        <div class="form-group search-box">
-            <search-box (searchChange)="onSearchChanged($event)" placeholder="Search Order"></search-box>
-        </div>
-    </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 text-left">
         <div class="navbar action-box">
-            <ul class="nav navbar-nav">
-                <li class="toolbaritem"><a href="javascript:;" (click)="addTask()"><i class="fa fa-plus"></i>Add Order</a></li>
-            </ul>
+            <button type="button" class="btn btn-primary" (click)="AddOrder()">Add Order</button>
         </div>
     </div>
+    <div class="col-sm-8 text-right">
+        <div class="form-group search-box">
+            <input type="text" class="form-control" id="searchOrder" placeholder="Search Orders .." />
+        </div>
+    </div>
+    
 </div>
 
-<div class="row">
-    <input class="span4 pull-right" type="text" placeholder="Search order" ngModel="query">
-</div>
-<div class="row">
 <table class="table table-striped table-bordered table-hover"  *ngIf="(orders$ | async).length">
     <thead>
         <tr>
@@ -35,7 +34,7 @@
             <th>City</th>
             <th>State</th>
             <th>Zip Code</th>
-            <th>Crud</th>
+            <th>Operations</th>
         </tr>
     </thead>
     <tbody>
@@ -55,9 +54,9 @@
         </tr>
     </tbody>
 </table>
- </div>
 
-<!--<div class="modal fade" bsModal #editorModal="bs-modal" tabindex="-1">
+
+<!--<div class="modal fade" bsModal tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -73,32 +72,23 @@
 
 
                     <div class="form-group has-feedback">
-                        <label class="control-label col-md-2" for="taskName">{{'todoDemo.editor.Name' | translate}}:</label>
+                        <label class="control-label col-md-2" for="taskName">First Name:</label>
                         <div class="col-md-10" [ngClass]="{'has-success': f.submitted && taskName.valid, 'has-error' : f.submitted && !taskName.valid}">
                             <input autofocus type="text" id="taskName" name="taskName" placeholder="Enter task name" class="form-control" [(ngModel)]="taskEdit.name" #taskName="ngModel" required />
                             <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ':taskName.valid, 'glyphicon-remove' : !taskName.valid}"></span>
                             <span *ngIf="f.submitted && !taskName.valid" class="errorMessage">
-                                {{'todoDemo.editor.TaskNameRequired' | translate}}
+                               Name is required
                             </span>
                         </div>
                     </div>
 
                     <div class="form-group description-form-group">
-                        <label class="control-label col-md-2" for="taskDescription">{{'todoDemo.editor.Description' | translate}}:</label>
+                        <label class="control-label col-md-2" for="taskDescription">Description</label>
                         <div class="col-md-10">
                             <input type="text" id="taskDescription" name="taskDescription" placeholder="Enter task description" class="form-control" [(ngModel)]="taskEdit.description" />
                         </div>
                     </div>
-                    <label class="control-label col-md-2"> </label>
-                    <div class="col-md-7">
-                        <div class="checkbox">
-                            <label>
-                                <input name="isImportant" type="checkbox" [(ngModel)]="taskEdit.important">
-                                {{'todoDemo.editor.Important' | translate}}
-                            </label>
-                        </div>
-                    </div>
-
+          
                     <div class="col-md-12">
                         <hr class="edit-last-separator-hr" />
                     </div>
