@@ -57,3 +57,7 @@ input.form-control {
         margin: 0 14px;
     }
 }
+.required:after {
+    content: " *";
+    color: red;
+}

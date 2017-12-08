@@ -1,6 +1,7 @@
 ﻿export class Order {
-   trackingId: number;
+   trackingId: string;
    userId: string;
+   streetName: string;
    streetAddress: string;
    city: string;
    state: string;

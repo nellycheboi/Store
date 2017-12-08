@@ -13,7 +13,8 @@
 <div class="row control-box">
     <div class="col-sm-4 text-left">
         <div class="navbar action-box">
-            <button type="button" class="btn btn-primary" (click)="AddOrder()">Add Order</button>
+            <button type="button" class="btn btn-primary" (click)="addOrderModal.show()">Add Order</button>
+           
         </div>
     </div>
     <div class="col-sm-8 text-right">
@@ -55,53 +56,108 @@
     </tbody>
 </table>
 
-
-<!--<div class="modal fade" bsModal tabindex="-1">
-    <div class="modal-dialog">
+<div class="modal fade" bsModal #addOrderModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title pull-left"><i class="fa fa-tasks"></i> {{'todoDemo.editor.NewTask' | translate}}</h4>
-                <button type="button" class="close pull-right" title="Close" (click)="editorModal.hide()">
+                <h4 class="modal-title pull-left">Add Order</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="addOrderModal.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form *ngIf="formResetToggle" class="form-horizontal" name="taskEditorForm" #f="ngForm" novalidate
-                      (ngSubmit)="f.form.valid ? save() :
-                      (!taskName.valid && showErrorAlert('Task name is required', 'Please enter a name for the task'));">
 
-
-                    <div class="form-group has-feedback">
-                        <label class="control-label col-md-2" for="taskName">First Name:</label>
-                        <div class="col-md-10" [ngClass]="{'has-success': f.submitted && taskName.valid, 'has-error' : f.submitted && !taskName.valid}">
-                            <input autofocus type="text" id="taskName" name="taskName" placeholder="Enter task name" class="form-control" [(ngModel)]="taskEdit.name" #taskName="ngModel" required />
-                            <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ':taskName.valid, 'glyphicon-remove' : !taskName.valid}"></span>
-                            <span *ngIf="f.submitted && !taskName.valid" class="errorMessage">
-                               Name is required
-                            </span>
-                        </div>
+            <form class="well" (ngSubmit)="onSubmit()" #orderForm="ngForm">
+                <div class="form-group">
+                    <label class="required" for="trackingId">Tracking Id</label>
+                    <input type="text" class="form-control" id="trackingId" placeholder="123978"
+                           required
+                           [(ngModel)]="model.trackingId"
+                           #trackingId="ngModel"
+                           name="trackingId">
+                    <div [hidden]="trackingId.valid || trackingId.pristine"
+                         class="alert alert-danger">
+                        Tracking Id is required
                     </div>
-
-                    <div class="form-group description-form-group">
-                        <label class="control-label col-md-2" for="taskDescription">Description</label>
-                        <div class="col-md-10">
-                            <input type="text" id="taskDescription" name="taskDescription" placeholder="Enter task description" class="form-control" [(ngModel)]="taskEdit.description" />
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="required" for="userId">User</label>
+                    <input type="text" class="form-control" id="userId" placeholder="DropDown"
+                           required
+                           [(ngModel)]="model.userId"
+                           #userId="ngModel"
+                           name="userId">
+                    <div [hidden]="userId.valid || userId.pristine"
+                         class="alert alert-danger">
+                        Every order must be associated with a user
                     </div>
-          
-                    <div class="col-md-12">
-                        <hr class="edit-last-separator-hr" />
+                </div>
+                <div class="form-group">
+                    <label for="addressName">Street Name</label>
+                    <input type="text" class="form-control" id="addressName" placeholder="Mobius"
+                           required
+                           [(ngModel)]="model.addressName"
+                           #addressName="ngModel"
+                           name="addressName">
+                </div>
+                <div class="form-group">
+                    <label class="required" for="streetAddress">Street Address</label>
+                    <input type="text" class="form-control" id="streetAddress" placeholder="123978"
+                           required
+                           [(ngModel)]="model.streetAddress"
+                           #streetAddress="ngModel"
+                           name="streetAddress">
+                    <div [hidden]="streetAddress.valid || streetAddress.pristine"
+                         class="alert alert-danger">
+                        Street Address is required
                     </div>
-
-
-                    <div class="form-group actionBtn-form-group">
-                        <div class="pull-right">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="required" for="city">City</label>
+                    <input type="text" class="form-control" id="city" placeholder="City"
+                           required
+                           [(ngModel)]="model.city"
+                           #city="ngModel"
+                           name="city">
+                    <div [hidden]="city.valid || city.pristine"
+                         class="alert alert-danger">
+                        City is required
                     </div>
-                    <div class="clearfix"></div>
-                </form>
-            </div>
+                </div>
+                <div class="form-group">
+                    <label class="required" for="state">State</label>
+                    <input type="text" class="form-control" id="state" placeholder="123978"
+                           required
+                           [(ngModel)]="model.state"
+                           #state="ngModel"
+                           name="state">
+                    <div [hidden]="state.valid || state.pristine"
+                         class="alert alert-danger">
+                        State is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="required" for="zipCode">Zip Code</label>
+                    <input type="text" class="form-control" id="zipCode" placeholder="616263"
+                           required
+                           [(ngModel)]="model.zipCode"
+                           #zipCode="ngModel"
+                           name="zipCode">
+                    <div [hidden]="zipCode.valid || zipCode.pristine"
+                         class="alert alert-danger">
+                        Zip Code is required
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class=" col-md-12 text-center">
+                        <button type="button"
+                                class="btn" (click)="addOrderModal.hide()">
+                            Cancel
+                        </button>
+                        <button type="submit" class=" btn btn-success" (click)="AddOrder()" [disabled]="!orderForm.form.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</div>-->
+</div>

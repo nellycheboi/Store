@@ -13,7 +13,7 @@ import { OrderComponent } from './components/order/order.component';
 import {MessagesComponent } from './components/messages/messages.component';
 
 import { AppRoutingModule } from './app-routing.module'
-
+import { ModalModule } from 'ngx-bootstrap';
 import { UserService } from './services/user.service';
 import { OrderService } from './services/order.service';
 import { MessageService } from './services/message.service'
@@ -35,6 +35,7 @@ import { MessageService } from './services/message.service'
         FormsModule,
         AppRoutingModule,
         MarkdownModule.forRoot(),
+        ModalModule.forRoot(),
 
     ]
 })

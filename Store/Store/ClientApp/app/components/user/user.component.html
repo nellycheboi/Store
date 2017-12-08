@@ -14,7 +14,7 @@
 <div class="row control-box">
     <div class="col-sm-4 text-left">
         <div class="navbar action-box">
-            <button  class="btn btn-primary" (click)="AddUser()"> Add User </button>
+            <button type="button" class="btn btn-primary" (click)="addUserModal.show()">Add User</button>
         </div>
     </div>
     <div class="col-sm-8 text-right">
@@ -46,3 +46,54 @@
         </tr>
     </tbody>
 </table>
+
+<div class="modal fade" bsModal #addUserModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Add User</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="addUserModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="well" (ngSubmit)="onSubmit()" #userForm="ngForm">
+                <div class="form-group">
+                    <label class="required" for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="User"
+                           required
+                           [(ngModel)]="model.firstName"
+                           #firstName="ngModel"
+                           name="firstName">
+                    <div [hidden]="firstName.valid || firstName.pristine"
+                         class="alert alert-danger">
+                        First Name is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required" for="lastName"> Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Name"
+                           required
+                           [(ngModel)]="model.lastName"
+                           #lastName="ngModel"
+                           name="lastName">
+                    <div [hidden]="lastName.valid || lastName.pristine"
+                         class="alert alert-danger">
+                        Last Name is required
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class=" col-md-12 text-center">
+                        <button type="button"
+                                class=" btn" (click)="addUserModal.hide()">
+                            Cancel
+                        </button>
+                        <button type="submit" class=" btn btn-success" (click)="AddUser()" [disabled]="!userForm.form.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

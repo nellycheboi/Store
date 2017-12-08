@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Order } from '../../models/order';
 import { Observable } from 'rxjs/Observable';
 import { OrderService } from '../../services/order.service'
@@ -12,7 +12,17 @@ import { OrderService } from '../../services/order.service'
 export class OrderComponent implements OnInit {
     order: Order;
     public orders$: Observable<Order[]>;
-    formResetToggle: boolean = true;
+    model: Order = {
+        trackingId: "",
+        userId: "",
+        streetName: "",
+        streetAddress: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        rowNumber: "orderRowNumber"
+    }
+
 
 
     // Inject OrderService. 
@@ -36,16 +46,7 @@ export class OrderComponent implements OnInit {
         this.orders$ = this.orderService.getOrders();
     }
 
-    addOrder() {
-        this.formResetToggle = false;
-
-        setTimeout(() => {
-            this.formResetToggle = true;
-
-            //this.taskEdit = {};
-            //this.editorModal.show();
-        });
-    }
+    
     //save(): void {
     //    this.orderService.updateOrder(this.order)
     //        .subscribe(() => this.goBack());
