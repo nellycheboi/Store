@@ -1,3 +1,3 @@
 # Store
 
-This project uses ASP.Net Core 2.o
+This project uses ASP.Net Core 2.0

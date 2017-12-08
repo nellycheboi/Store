@@ -7,18 +7,18 @@ import { Http } from '@angular/http';
     `,
 })
 export class HomeComponent {
-    public readMeUrl  = 'https://api.github.com/nellycheboi12/Store/master/README.md';
-    content: any;
+    public readMeUrl = 'https://raw.githubusercontent.com/nellycheboi12/Store/master/README.md';
+    content: string;
     constructor(private http: Http)  {
         
     }
     ngOnInit()  {
-        this.getReadMeContent();
+       this.getReadMeContent();
     }
 
     getReadMeContent() : void {
-       this.http.get(this.readMeUrl).subscribe(result => {
-            this.content = "";
+        this.http.get(this.readMeUrl).subscribe(result => {
+            this.content = result.text();
         });
     }
 }
