@@ -17,7 +17,7 @@ export class UserComponent implements OnInit {
     user: User;
     public users: User[];
     model: User = {
-        id: -1,
+        id: null,
         firstName: "",
         lastName: "",
         rowNumber: "rowNumber"
@@ -47,10 +47,6 @@ export class UserComponent implements OnInit {
         this.userService.getUsers().subscribe(users => this.users = users);
     }
 
-    updateUser(user: User): void {
-        this.userService.updateUser(user)
-            .subscribe();
-    }
     // Todo https://angular.io/tutorial/toh-pt6#add-a-new-hero
     addUser(user: User): void {
         if (!user) { return; }
@@ -58,6 +54,17 @@ export class UserComponent implements OnInit {
             .subscribe(user => {
                 this.users.push(user);
         });
+    }
+
+
+    updateUser(user: User): void {
+        this.userService.updateUser(user)
+            .subscribe();
+    }
+
+    deleteUser(user: User): void {
+        this.users = this.users.filter(u => u != user);
+        this.userService.deleteUser(user).subscribe();
     }
     get diagnostic() { return JSON.stringify(this.model); }
 }

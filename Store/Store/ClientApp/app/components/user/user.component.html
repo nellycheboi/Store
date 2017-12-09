@@ -1,13 +1,10 @@
-﻿
+﻿<app-messages></app-messages>
 <div class="row">
     <div class="col-md-12 text-left">
         <h2>Our Users</h2>
     </div>
 </div>
 
-
-<app-messages></app-messages>
-<!-- We use the async pipe to automatically subscribe/unsubscribe to our observable -->
 
 
 
@@ -24,7 +21,7 @@
     </div>
 
 </div>
- <div *ngIf="users.length">
+<div *ngIf="users.length">
     <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
@@ -41,9 +38,9 @@
                 <td> {{ user.lastName }} </td>
 
                 <td>
-                    <a routerLink="/detail/{{user.id}}">Detail</a> |
-                    <button (click)="model= user; updateUserModal.show();">Edit</button> |
-                    <a (click)="delete()">Delete</a>
+                    <button class = "btn btn-info" (click)="model= user; userDetailModal.show();">Show</button>
+                    <button class = "btn btn-success" (click)="model= user; updateUserModal.show();">Change</button>
+                    <button class = "btn btn-warning" (click)="model= user; deleteUserModal.show();">Remove</button>
                 </td>
             </tr>
         </tbody>
@@ -91,8 +88,8 @@
                 <div class=" row">
                     <div class=" col-md-12 text-center">
                         <button type="button"
-                                class=" btn" (click)="addUserModal.hide()">
-                            Cancel
+                                class="btn btn-info" (click)="addUserModal.hide()">
+                            Close
                         </button>
                         <button type="submit" class=" btn btn-success" [disabled]="!userForm.form.valid">Submit</button>
                     </div>
@@ -102,6 +99,65 @@
     </div>
 </div>
 
+<!--Show curent user-->
+<div class="modal fade" bsModal #userDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">User: {{ model.lastName}}, {{ model.firstName}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="userDetailModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="well">
+                <ul>
+                    <li>
+                        <label>
+                            First Name:
+                        </label>
+                        {{ model.firstName }}
+                    </li>
+
+                    <li>
+                        <label>
+                            LastName:
+                        </label>
+                        {{ model.lastName }}
+                    </li>
+                </ul>
+                <h2> Associated orders</h2>
+                <ul>
+                    <dt>
+                        <label>
+                            User:
+                        </label>
+                        {{ model.firstName }}
+                    </dt>
+                </ul>
+                <ul>
+                    <dt>
+                        <label>
+                            User:
+                        </label>
+                        {{ model.lastName }}
+                    </dt>
+                </ul>
+            
+            <div class="row">
+                <div class=" col-md-12 text-center">
+                    <button type="button"
+                            class="btn btn-info" (click)="userDetailModal.hide()">
+                        Close
+                    </button>
+                </div>
+            </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!--Update User-->
 <div class="modal fade" bsModal #updateUserModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md">
@@ -124,31 +180,93 @@
                          class="alert alert-danger">
                         First Name is required
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="required" for="lastName"> Last Name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Name"
-                           required
-                           [(ngModel)]="model.lastName"
-                           #lastName="ngModel"
-                           name="lastName">
-                    <div [hidden]="lastName.valid || lastName.pristine"
-                         class="alert alert-danger">
-                        Last Name is required
+
+                    <div class="form-group">
+                        <label class="required" for="lastName"> Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Name"
+                               required
+                               [(ngModel)]="model.lastName"
+                               #lastName="ngModel"
+                               name="lastName">
+                        <div [hidden]="lastName.valid || lastName.pristine"
+                             class="alert alert-danger">
+                            Last Name is required
+                        </div>
                     </div>
-                </div>
 
-                <div class=" row">
-                    <div class=" col-md-12 text-center">
-                        <button type="button"
-                                class=" btn" (click)="updateUserModal.hide()">
-                            Cancel
-                        </button>
-                        <button type="submit" class=" btn btn-success" [disabled]="!userForm.form.valid">Update</button>
+                    <div class=" row">
+                        <div class=" col-md-12 text-center">
+                            <button type="button"
+                                    class=" btn btn-info" (click)="updateUserModal.hide()">
+                                Close
+                            </button>
+                            <button type="submit" class=" btn btn-success" [disabled]="!userForm.form.valid">Update</button>
+                        </div>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete user-->
+<div class="modal fade" bsModal #deleteUserModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Delete User: {{ model.lastName}}, {{ model.firstName}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="deleteUserModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="well">
+                <ul>
+                    <li>
+                        <label>
+                            First Name:
+                        </label>
+                        {{ model.firstName }}
+                    </li>
+
+                    <li>
+                        <label>
+                            LastName:
+                        </label>
+                        {{ model.lastName }}
+                    </li>
+                </ul>
+                <h2> Associated orders will be delete too</h2>
+                <dl>
+                    <dt>
+                        <label>
+                            User:
+                        </label>
+                        {{ model.firstName }}
+                    </dt>
+
+                    <dt>
+                        <label>
+                            User:
+                        </label>
+                        {{ model.lastName }}
+                    </dt>
+                </dl>
+
+                <div class="row">
+                    <div class=" col-md-12 text-center">
+                        <button type="button"
+                                class="btn btn-info" (click)="deleteUserModal.hide();">
+                            Close
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger" (click)="deleteUserModal.hide(); deleteUser(model)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

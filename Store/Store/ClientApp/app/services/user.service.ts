@@ -31,12 +31,29 @@ export class UserService {
             catchError(this.handleError<User>(`getUser id=${id}`))
         );
     }
+    ///Create
+    addUser(user: User): Observable<User> {
+        return this.http.post<User>(this.usersUrl, user, httpOptions).pipe(
+            tap((user: User) => this.log(`added user w/ name=${user.firstName}`)),
+            catchError(this.handleError<User>('addUser'))
+        );
+    }
 
     /** PUT: update the user on the server */
     updateUser(user: User): Observable<any> {
-        return this.http.put(this.usersUrl, user, httpOptions).pipe(
-            tap(_ => this.log(`updated user first name=${user.firstName}`)),
+        const url = `${this.usersUrl}/${user.id}`;
+        return this.http.put(url, (user.id, user), httpOptions).pipe(
+            tap(_ => this.log(`Updated user  ${user.lastName}, ${user.firstName}`)),
             catchError(this.handleError<any>('updateUserr'))
+        );
+    }
+
+    deleteUser(user: User): Observable<User> {
+        const url = `${this.usersUrl}/${user.id}`;
+        return this.http.delete<User>(url, httpOptions).pipe(
+            tap(_ => this.log(`Deleted user = ${user.lastName}, ${user.firstName}`)),
+            catchError(this.handleError<User>('deleteUser')
+            )
         );
     }
 
@@ -45,12 +62,6 @@ export class UserService {
         this.messageService.add('UserService: ' + message);
     }
 
-    addUser(user: User): Observable<User> {
-        return this.http.post<User>(this.usersUrl, (user.id, user), httpOptions).pipe(
-            tap((user: User) => this.log(`added user w/ name=${user.firstName}`)),
-            catchError(this.handleError<User>('addUser'))
-        );
-    }
 
     /**
     * Handle Http operation that failed.

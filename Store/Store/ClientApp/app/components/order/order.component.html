@@ -48,9 +48,9 @@
                 <td> {{ order.state }} </td>
                 <td> {{ order.zipCode}} </td>
                 <td>
-                    <button type="btn" (click)="model=order; orderDetailModal.show()">Detail</button> |
-                    <button type="btn" (click)="model=order; updateOrderModal.show()">Update</button> |
-                    <a (click)="delete()">Delete</a>
+                    <button class="btn btn-info" (click)="model=order; orderDetailModal.show()">Show</button>
+                    <button class="btn btn-success" (click)="model=order; updateOrderModal.show()">Change</button>
+                    <button class="btn btn-warning" (click)="model=order; deleteOrderModal.show()">Remove</button>
                 </td>
             </tr>
         </tbody>
@@ -152,8 +152,8 @@
                 <div class=" row">
                     <div class=" col-md-12 text-center">
                         <button type="button"
-                                class="btn" (click)="addOrderModal.hide()">
-                            Cancel
+                                class="btn btn-info" (click)="addOrderModal.hide()">
+                            Close
                         </button>
                         <button type="submit" class=" btn btn-success" [disabled]="!orderForm.form.valid">Submit</button>
                     </div>
@@ -175,65 +175,72 @@
                 </button>
             </div>
             <div class="well">
-            <ul>
-                <li>
-                    <label>
-                        Tracking Id:</label>
-                         {{ model.trackingId }}
-                </li>
-               
-                <li>
-                    <label>
-                        Street Name:</label>
-                         {{ model.addressName }}
-                </li>
-                <li>
-                    <label>
-                        Street Address:</label>
-                         {{ model.streetAddress }}
-                </li>
-                <li>
-                    <label>
-                        City:</label>
-                         {{ model.city }}
-                </li>
-                <li>
-                    <label>
-                        State:</label>
-                         {{ model.state }}
-                </li>
-                <li>
-                    <label>
-                        Zip Code:</label>
-                         {{ model.zipCode }}
-                </li>
-            </ul>
+                <ul>
+                    <li>
+                        <label>
+                            Tracking Id:
+                        </label>
+                        {{ model.trackingId }}
+                    </li>
+
+                    <li>
+                        <label>
+                            Street Name:
+                        </label>
+                        {{ model.addressName }}
+                    </li>
+                    <li>
+                        <label>
+                            Street Address:
+                        </label>
+                        {{ model.streetAddress }}
+                    </li>
+                    <li>
+                        <label>
+                            City:
+                        </label>
+                        {{ model.city }}
+                    </li>
+                    <li>
+                        <label>
+                            State:
+                        </label>
+                        {{ model.state }}
+                    </li>
+                    <li>
+                        <label>
+                            Zip Code:
+                        </label>
+                        {{ model.zipCode }}
+                    </li>
+                </ul>
                 <h2> Associated User</h2>
                 <ul>
-                <dt>
-                    <label>
-                        User:
-                    </label>
-                    {{ model.user.firstName }}
-                </dt>
-                    </ul>
+                    <dt>
+                        <label>
+                            User:
+                        </label>
+                        {{ model.user.firstName }}
+                    </dt>
+                </ul>
                 <ul>
-                <dt>
-                    <label>
-                        User:
-                    </label>
-                    {{ model.user.lastName }}
-                </dt>
-                    </ul>
-        </div>
-            <div class="row">
-            <div class=" col-md-12 text-center">
-                <button type="button"
-                        class="btn" (click)="orderDetailModal.hide()">
-                    Cancel
-                </button>
-              </div>
-             </div>
+                    <dt>
+                        <label>
+                            User:
+                        </label>
+                        {{ model.user.lastName }}
+                    </dt>
+                </ul>
+
+                <div class="row">
+                    <div class=" col-md-12 text-center">
+                        <button type="button"
+                                class="btn btn-info" (click)="orderDetailModal.hide()">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -334,13 +341,99 @@
                 <div class=" row">
                     <div class=" col-md-12 text-center">
                         <button type="button"
-                                class="btn" (click)="updateOrderModal.hide()">
-                            Cancel
+                                class="btn btn-info" (click)="updateOrderModal.hide()">
+                            Close
                         </button>
                         <button type="submit" class=" btn btn-success" [disabled]="!orderForm.form.valid">Update</button>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!--Delete Order-->
+<div class="modal fade" bsModal #deleteOrderModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Delete: {{ model.user.lastName}}, {{ model.user.firstName}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="deleteOrderModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="well">
+                <ul>
+                    <li>
+                        <label>
+                            Tracking Id:
+                        </label>
+                        {{ model.trackingId }}
+                    </li>
+
+                    <li>
+                        <label>
+                            Street Name:
+                        </label>
+                        {{ model.addressName }}
+                    </li>
+                    <li>
+                        <label>
+                            Street Address:
+                        </label>
+                        {{ model.streetAddress }}
+                    </li>
+                    <li>
+                        <label>
+                            City:
+                        </label>
+                        {{ model.city }}
+                    </li>
+                    <li>
+                        <label>
+                            State:
+                        </label>
+                        {{ model.state }}
+                    </li>
+                    <li>
+                        <label>
+                            Zip Code:
+                        </label>
+                        {{ model.zipCode }}
+                    </li>
+                </ul>
+                <h2> Associated User</h2>
+                <ul>
+                    <dt>
+                        <label>
+                            User:
+                        </label>
+                        {{ model.user.firstName }}
+                    </dt>
+                </ul>
+                <ul>
+                    <dt>
+                        <label>
+                            User:
+                        </label>
+                        {{ model.user.lastName }}
+                    </dt>
+                </ul>
+
+                <div class="row">
+                    <div class=" col-md-12 text-center">
+                        <button type="button"
+                                class="btn btn-info" (click)="deleteOrderModal.hide();">
+                            Close
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger" (click)="deleteOrderModal.hide(); deleteOrder(model)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

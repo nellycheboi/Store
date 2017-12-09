@@ -51,10 +51,6 @@ export class OrderComponent implements OnInit {
         this.orderService.getOrders().subscribe(orders => this.orders = orders);
     }
 
-    
-    updateOrder(): void {
-        this.orderService.updateOrder(this.order).subscribe();
-    }
 
     addOrder(order: Order): void {
         if (!order) { return; }
@@ -64,4 +60,12 @@ export class OrderComponent implements OnInit {
             });
     }
 
+    updateOrder(order: Order): void {
+        this.orderService.updateOrder(order).subscribe();
+    }
+
+    deleteOrder(order: Order): void {
+        this.orders = this.orders.filter(o => o != order);
+        this.orderService.deleteUser(order.trackingId).subscribe;
+    }
 }
