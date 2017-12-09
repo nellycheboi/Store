@@ -1,4 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { Order } from '../../models/order';
 import { Observable } from 'rxjs/Observable';
 import { OrderService } from '../../services/order.service'
@@ -49,11 +52,10 @@ export class OrderComponent implements OnInit {
     }
 
     
-    //save(): void {
-    //    this.orderService.updateOrder(this.order)
-    //        .subscribe(() => this.goBack());
-    //}
-    //// Todo
+    updateOrder(): void {
+        this.orderService.updateOrder(this.order).subscribe();
+    }
+
     addOrder(order: Order): void {
         if (!order) { return; }
         this.orderService.addOrder(order)

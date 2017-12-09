@@ -36,7 +36,7 @@ export class UserService {
     updateUser(user: User): Observable<any> {
         return this.http.put(this.usersUrl, user, httpOptions).pipe(
             tap(_ => this.log(`updated user first name=${user.firstName}`)),
-            catchError(this.handleError<any>('updateOrder'))
+            catchError(this.handleError<any>('updateUserr'))
         );
     }
 
@@ -46,7 +46,7 @@ export class UserService {
     }
 
     addUser(user: User): Observable<User> {
-        return this.http.post<User>(this.usersUrl, user, httpOptions).pipe(
+        return this.http.post<User>(this.usersUrl, (user.id, user), httpOptions).pipe(
             tap((user: User) => this.log(`added user w/ name=${user.firstName}`)),
             catchError(this.handleError<User>('addUser'))
         );

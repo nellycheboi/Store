@@ -28,6 +28,7 @@
     <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Operations</th>
@@ -35,12 +36,13 @@
         </thead>
         <tbody>
             <tr *ngFor="let user of users">
+                <td> {{ user.id }}</td>
                 <td> {{ user.firstName }} </td>
                 <td> {{ user.lastName }} </td>
 
                 <td>
                     <a routerLink="/detail/{{user.id}}">Detail</a> |
-                    <a (click)="edit()">Edit</a> |
+                    <button (click)="model= user; updateUserModal.show();">Edit</button> |
                     <a (click)="delete()">Delete</a>
                 </td>
             </tr>
@@ -93,6 +95,57 @@
                             Cancel
                         </button>
                         <button type="submit" class=" btn btn-success" [disabled]="!userForm.form.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #updateUserModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Add User</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="updateUserModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="well" (ngSubmit)="updateUserModal.hide(); updateUser(model);" #userForm="ngForm">
+                <div class="form-group">
+                    <label class="required" for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="User"
+                           required
+                           [(ngModel)]="model.firstName"
+                           #firstName="ngModel"
+                           name="firstName">
+                    <div [hidden]="firstName.valid || firstName.pristine"
+                         class="alert alert-danger">
+                        First Name is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required" for="lastName"> Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Name"
+                           required
+                           [(ngModel)]="model.lastName"
+                           #lastName="ngModel"
+                           name="lastName">
+                    <div [hidden]="lastName.valid || lastName.pristine"
+                         class="alert alert-danger">
+                        Last Name is required
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class=" col-md-12 text-center">
+                        <button type="button"
+                                class=" btn" (click)="updateUserModal.hide()">
+                            Cancel
+                        </button>
+                        <button type="submit" class=" btn btn-success" [disabled]="!userForm.form.valid">Update</button>
                     </div>
                 </div>
             </form>
