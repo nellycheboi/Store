@@ -2,6 +2,7 @@
 import { Order } from '../../models/order';
 import { Observable } from 'rxjs/Observable';
 import { OrderService } from '../../services/order.service'
+import { User } from "../../models/user";
 
 @Component({
     selector: 'order',
@@ -11,7 +12,7 @@ import { OrderService } from '../../services/order.service'
 })
 export class OrderComponent implements OnInit {
     order: Order;
-    public orders$: Observable<Order[]>;
+    public orders: Order[];
     model: Order = {
         trackingId: "",
         userId: "",
@@ -20,7 +21,8 @@ export class OrderComponent implements OnInit {
         city: "",
         state: "",
         zipCode: "",
-        rowNumber: "orderRowNumber"
+        rowNumber: "orderRowNumber",
+        user: new User
     }
 
 
@@ -43,7 +45,7 @@ export class OrderComponent implements OnInit {
     // an observable that we assing to the users$ property of this class.
     // It is best practice to use $ in observable instance
     getOrders(): void {
-        this.orders$ = this.orderService.getOrders();
+        this.orderService.getOrders().subscribe(orders => this.orders = orders);
     }
 
     
@@ -52,13 +54,12 @@ export class OrderComponent implements OnInit {
     //        .subscribe(() => this.goBack());
     //}
     //// Todo
-    //add(name: string): void {
-    //    name = name.trim();
-    //    if (!name) { return; }
-    //    this.orderService.addOrder({ name } as Order)
-    //        .subscribe(order => {
-    //            this.orders$.push(order);
-    //        });
-    //}
+    addOrder(order: Order): void {
+        if (!order) { return; }
+        this.orderService.addOrder(order)
+            .subscribe(order => {
+                this.orders.push(order);
+            });
+    }
 
 }

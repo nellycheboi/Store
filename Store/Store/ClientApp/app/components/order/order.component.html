@@ -24,8 +24,8 @@
     </div>
     
 </div>
-
-<table class="table table-striped table-bordered table-hover"  *ngIf="(orders$ | async).length">
+<div  *ngIf="orders.length">
+<table class="table table-striped table-bordered table-hover">
     <thead>
         <tr>
             <th>Tracking Id</th>
@@ -39,7 +39,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let order of orders$ | async">
+        <tr *ngFor="let order of orders">
             <td> {{ order.trackingId}} </td>
             <td> {{ order.userId }} </td>
             <td> {{ order.addressName}} </td>
@@ -55,7 +55,7 @@
         </tr>
     </tbody>
 </table>
-
+</div>
 <div class="modal fade" bsModal #addOrderModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md">
@@ -67,7 +67,7 @@
                 </button>
             </div>
 
-            <form class="well" (ngSubmit)="onSubmit()" #orderForm="ngForm">
+            <form class="well" (ngSubmit)="addOrderModal.hide(); addOrder(model); orderForm.reset()" #orderForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="trackingId">Tracking Id</label>
                     <input type="text" class="form-control" id="trackingId" placeholder="123978"
@@ -154,7 +154,7 @@
                                 class="btn" (click)="addOrderModal.hide()">
                             Cancel
                         </button>
-                        <button type="submit" class=" btn btn-success" (click)="AddOrder()" [disabled]="!orderForm.form.valid">Submit</button>
+                        <button type="submit" class=" btn btn-success" [disabled]="!orderForm.form.valid">Submit</button>
                     </div>
                 </div>
             </form>

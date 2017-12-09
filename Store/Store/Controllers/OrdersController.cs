@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoreDataLayer.Data;
 using StoreDataLayer.Models;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace StoreDataLayer.Controllers
 {
@@ -21,12 +22,21 @@ namespace StoreDataLayer.Controllers
             _context = context;
         }
 
-        // GET: api/Orders
+       /// <summary>
+       /// Get: api/orders
+       /// Uses eager loading to append associated user to the order.
+       /// AsNoTracking has been appended to improve perfomance. It is also safe because no entities are updated in this context
+       /// </summary>
+       /// <returns></returns>
         [HttpGet]
-        public IEnumerable<Order> GetOrders()
+        public  IActionResult GetOrders()
         {
+            var orders = _context.Orders
+                .Include(c => c.User)
+                .AsNoTracking()
+                .ToList();
 
-            return _context.Orders;
+            return Ok(orders);
         }
 
         // GET: api/Orders/5
@@ -38,7 +48,10 @@ namespace StoreDataLayer.Controllers
                 return BadRequest(ModelState);
             }
 
-            var order = await _context.Orders.SingleOrDefaultAsync(m => m.TrackingId == id);
+            var order = await _context.Orders
+                .Include(c => c.User)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.TrackingId == id);
 
             if (order == null)
             {

@@ -15,12 +15,12 @@ import { Observable } from "rxjs/Observable";
 })
 export class UserComponent implements OnInit {
     user: User;
-    public users$: Observable<User[]>;
+    public users: User[];
     model: User = {
-        id: -1,
         firstName: "",
         lastName: "",
         rowNumber: "rowNumber"
+
     };
 
   
@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
     // an observable that we assing to the users$ property of this class.
     // It is best practice to use $ in observable instance
     getUsers(): void {
-        this.users$ = this.userService.getUsers();
+        this.userService.getUsers().subscribe(users => this.users = users);
     }
 
     //save(): void {
@@ -51,13 +51,12 @@ export class UserComponent implements OnInit {
     //        .subscribe(() => this.goBack());
     //}
     // Todo https://angular.io/tutorial/toh-pt6#add-a-new-hero
-    //add(firstName: string): void {
-    //    firstName = firstName.trim();
-    //    if (!firstName) { return; }
-    //    this.userService.addUser({{ firstName }} as User)
-    //        .subscribe(user => {
-    //            this.users$.push(user);
-    //    });
-    //}
-
+    addUser(user: User): void {
+        if (!user) { return; }
+        this.userService.addUser(user)
+            .subscribe(user => {
+                this.users.push(user);
+        });
+    }
+    get diagnostic() { return JSON.stringify(this.model); }
 }

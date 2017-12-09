@@ -24,28 +24,30 @@
     </div>
 
 </div>
+ <div *ngIf="users.length">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td> {{ user.firstName }} </td>
+                <td> {{ user.lastName }} </td>
 
-<table class="table table-striped table-bordered table-hover" *ngIf="(users$ | async).length">
-    <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Operations</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let user of users$ | async">
-            <td> {{ user.firstName }} </td>
-            <td> {{ user.lastName }} </td>
-            
-            <td>
-                <a routerLink="/detail/{{user.id}}">Detail</a> |
-                <a (click)="edit()">Edit</a> |
-                <a (click)="delete()">Delete</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                <td>
+                    <a routerLink="/detail/{{user.id}}">Detail</a> |
+                    <a (click)="edit()">Edit</a> |
+                    <a (click)="delete()">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{{diagnostic}}
 
 <div class="modal fade" bsModal #addUserModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog">
@@ -57,7 +59,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)="onSubmit()" #userForm="ngForm">
+            <form class="well" (ngSubmit)="addUserModal.hide(); addUser(model); userForm.reset()" #userForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="User"
@@ -90,7 +92,7 @@
                                 class=" btn" (click)="addUserModal.hide()">
                             Cancel
                         </button>
-                        <button type="submit" class=" btn btn-success" (click)="AddUser()" [disabled]="!userForm.form.valid">Submit</button>
+                        <button type="submit" class=" btn btn-success" [disabled]="!userForm.form.valid">Submit</button>
                     </div>
                 </div>
             </form>

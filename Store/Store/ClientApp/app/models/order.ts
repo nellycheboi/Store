@@ -1,4 +1,6 @@
-﻿export class Order {
+﻿import { User } from "./user";
+
+export class Order {
    trackingId: string;
    userId: string;
    streetName: string;
@@ -9,5 +11,5 @@
 
     // Handling concurency
    rowNumber: string;
-
+   user: User;
 }

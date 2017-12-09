@@ -35,7 +35,7 @@ export class UserService {
     /** PUT: update the user on the server */
     updateUser(user: User): Observable<any> {
         return this.http.put(this.usersUrl, user, httpOptions).pipe(
-            tap(_ => this.log(`updated hero id=${user.id}`)),
+            tap(_ => this.log(`updated user first name=${user.firstName}`)),
             catchError(this.handleError<any>('updateOrder'))
         );
     }
@@ -43,6 +43,13 @@ export class UserService {
     // Logging a UserService message with the MessageService
     private log(message: string) {
         this.messageService.add('UserService: ' + message);
+    }
+
+    addUser(user: User): Observable<User> {
+        return this.http.post<User>(this.usersUrl, user, httpOptions).pipe(
+            tap((user: User) => this.log(`added user w/ name=${user.firstName}`)),
+            catchError(this.handleError<User>('addUser'))
+        );
     }
 
     /**
