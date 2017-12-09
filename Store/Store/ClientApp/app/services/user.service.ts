@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/Observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Message } from "../models/message";
+import { MessageType } from "../models/messageType";
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -26,41 +28,58 @@ export class UserService {
     // the server should respond with a single user
     getHero(id: number): Observable<User> {
         const url = `${this.usersUrl}/${id}`;
+        const message: Message = {
+            type: MessageType.SUCCESS,
+            message: `Fetched order id=${id}`
+        }
         return this.http.get<User>(url).pipe(
-            tap(_ => this.log(`fetched order id=${id}`)),
-            catchError(this.handleError<User>(`getUser id=${id}`))
+            tap(_ => this.log(message)),
+            catchError(this.handleError<User>(`Getting User id=${id}`))
         );
     }
     ///Create
     addUser(user: User): Observable<User> {
+        const message: Message = {
+            type: MessageType.SUCCESS,
+            message: `Added ${user.lastName}, ${user.firstName}`
+        }
         return this.http.post<User>(this.usersUrl, user, httpOptions).pipe(
-            tap((user: User) => this.log(`added user w/ name=${user.firstName}`)),
-            catchError(this.handleError<User>('addUser'))
+            tap((user: User) => this.log(message)),
+            catchError(this.handleError<User>(`Adding User: ${user.lastName}, ${user.firstName}`))
         );
     }
 
     /** PUT: update the user on the server */
     updateUser(user: User): Observable<any> {
         const url = `${this.usersUrl}/${user.id}`;
+        const message: Message = {
+            type: MessageType.SUCCESS,
+            message: `Updated User:  ${user.lastName}, ${user.firstName}`
+        }
         return this.http.put(url, (user.id, user), httpOptions).pipe(
-            tap(_ => this.log(`Updated user  ${user.lastName}, ${user.firstName}`)),
-            catchError(this.handleError<any>('updateUserr'))
+            tap(_ => this.log(message)),
+            catchError(this.handleError<any>(`Updating User: ${user.lastName}, ${user.firstName}`))
         );
     }
 
     deleteUser(user: User): Observable<User> {
         const url = `${this.usersUrl}/${user.id}`;
+        const message: Message = {
+            type: MessageType.SUCCESS,
+            message: `Deleted: ${user.lastName}, ${user.firstName}`
+        }
         return this.http.delete<User>(url, httpOptions).pipe(
-            tap(_ => this.log(`Deleted user = ${user.lastName}, ${user.firstName}`)),
-            catchError(this.handleError<User>('deleteUser')
+            tap(_ => this.log(message),
+                catchError(this.handleError<User>(`Deleting User: ${user.lastName}, ${user.firstName}`))
             )
         );
     }
 
     // Logging a UserService message with the MessageService
-    private log(message: string) {
-        this.messageService.add('UserService: ' + message);
+    private log(message: Message) {
+        this.messageService.add(message);
     }
+
 
 
     /**
@@ -77,7 +96,11 @@ export class UserService {
             console.error(error); // log to console instead
 
             // TODO: better job of transforming error for user consumption
-            this.log(`${operation} failed: ${error.message}`);
+            const message: Message = {
+                type: MessageType.ERROR,
+                message: `${operation} Failed: ${error.message}`
+            }
+            this.log(message);
 
             // Let the app keep running by returning an empty result.
             return of(result as T);

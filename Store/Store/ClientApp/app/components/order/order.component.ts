@@ -1,6 +1,4 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { Order } from '../../models/order';
 import { Observable } from 'rxjs/Observable';

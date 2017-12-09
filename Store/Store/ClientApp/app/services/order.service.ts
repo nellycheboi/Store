@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/Observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
+import { MessageType } from "../models/messageType";
+import { Message } from "../models/message";
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,27 +29,39 @@ export class OrderService {
 
     // construct a request url with the desired order id
     // the server should respond with a single order
-    getOrder(id: number): Observable<Order> {
-        const url = `${this.ordersUrl}/${id}`;
+    getOrder(trackingId: string): Observable<Order> {
+        const url = `${this.ordersUrl}/${trackingId}`;
+        const message: Message = {
+            type: MessageType.SUCCESS,
+            message: `Fetched Order =${trackingId}`
+        }
         return this.http.get<Order>(url).pipe(
-            tap(_ => this.log(`fetched order id=${id}`)),
-            catchError(this.handleError<Order>(`getOrder id=${id}`))
+            tap(_ => this.log(message)),
+            catchError(this.handleError<Order>(`Getting Order: ${trackingId}`))
         );
     }
     /** POST: add a new order to the server */
     addOrder(order: Order): Observable<Order> {
+        const message: Message = {
+            type: MessageType.SUCCESS,
+            message: `Added order: ${order.trackingId}`
+        }
         return this.http.post<Order>(this.ordersUrl, order, httpOptions).pipe(
-            tap((order: Order) => this.log(`added order w/ id=${order.trackingId}`)),
-            catchError(this.handleError<Order>('addOrder'))
+            tap((order: Order) => this.log(message)),
+            catchError(this.handleError<Order>(`Adding Order ${order.trackingId}`))
         );
     }
 
     /** PUT: update the order on the server */
     updateOrder(order: Order): Observable<any> {
         const url = `${this.ordersUrl}/${order.trackingId}`;
+        const message: Message = {
+            type: MessageType.SUCCESS,
+            message: `Updated Order: ${order.trackingId}`
+        }
         return this.http.put(url, order, httpOptions).pipe(
-            tap(_ => this.log(`updated order id=${order.trackingId}`)),
-            catchError(this.handleError<any>('updateOrder'))
+            tap(_ => this.log(message)),
+            catchError(this.handleError<any>(`Updating Order  ${order.trackingId}`))
         );
     }
 
@@ -57,16 +71,20 @@ export class OrderService {
      */
     deleteUser(trackingId: string): Observable<Order> {
         const url = `${this.ordersUrl}/$(trackingId}`;
+        const message: Message = {
+            type: MessageType.SUCCESS,
+            message: `Deleted Order:  ${trackingId}`
+        }
         return this.http.delete<Order>(url, httpOptions).pipe(
-            tap(_ => this.log(`Deleted order trackingId = ${trackingId}`)),
-            catchError(this.handleError<Order>('deleteOrder')
+            tap(_ => this.log(message)),
+            catchError(this.handleError<Order>(`Deleting Order  ${trackingId}`)
             )
         );
     }
 
     // Logging a OrderService message with the MessageService
-    private log(message: string) {
-        this.messageService.add('OrderService: ' + message);
+    private log(message: Message) {
+        this.messageService.add(message);
     }
 
     /**
@@ -82,8 +100,12 @@ export class OrderService {
             // TODO: send the error to remote logging infrastructure
             console.error(error); // log to console instead
 
+            const message: Message = {
+                type: MessageType.ERROR,
+                message: `${operation} Failed: ${error.message}`
+            }
             // TODO: better job of transforming error for user consumption
-            this.log(`${operation} failed: ${error.message}`);
+            this.log(message);
 
             // Let the app keep running by returning an empty result.
             return of(result as T);
