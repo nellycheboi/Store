@@ -62,6 +62,7 @@
                 </td>
             </tr>
         </tbody>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
     </table>
 </div>
 <!--ADD NEW ORDER-->
@@ -273,6 +274,7 @@
                     <label class="required" for="trackingId">Tracking Id</label>
                     <input type="text" class="form-control" id="trackingId" placeholder="123978"
                            required
+                           readonly
                            [(ngModel)]="model.trackingId"
                            #trackingId="ngModel"
                            name="trackingId">

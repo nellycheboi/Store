@@ -94,7 +94,7 @@ namespace StoreDataLayer.Controllers
             }
             catch (DbUpdateException e)
             {
-                return BadRequest("Make sure you have a valid associated user");
+                return BadRequest("Make sure the tracking order is unique or the order has and associated user");
             }
 
 
@@ -102,6 +102,12 @@ namespace StoreDataLayer.Controllers
         }
 
         // POST: api/Orders
+        /// <summary>
+        /// The client is responsible for setting the unique id, tracking id
+        /// We need to make sure that they provided a unique id.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> PostOrder([FromBody] Order order)
         {
@@ -109,11 +115,17 @@ namespace StoreDataLayer.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrder", new { id = order.TrackingId }, order);
+            try
+            {
+                _context.Orders.Add(order);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException e)
+            {
+                return BadRequest("Make sure the tracking order is unique or the order has and associated user");
+            }
+            return NoContent();
+            //return CreatedAtAction("GetOrder", new { id = order.TrackingId }, order);
         }
 
         // DELETE: api/Orders/5

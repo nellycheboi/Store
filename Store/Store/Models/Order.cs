@@ -12,6 +12,7 @@ namespace StoreDataLayer.Models
     {
         [Key]
         [Column("tracking_id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string TrackingId { get; set; }
 
         [ForeignKey("user_id")]

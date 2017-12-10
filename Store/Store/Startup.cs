@@ -22,8 +22,13 @@ namespace Store
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Configuring app to provide token in a cookie called XSRF-TOKEN
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
             services.AddDbContext<StoreDbContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();

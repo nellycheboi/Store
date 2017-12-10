@@ -100,7 +100,7 @@ export class UserService {
             } else {
                 // The backend returned an unsuccessful response code.
                 // The response body may contain clues as to what went wrong,
-                errorMessage = `An error occurred while ${operation}: Server returned code ${err.statusText}`;
+                errorMessage = `An error occurred while ${operation}: Server returned ${err.error}`;
             }
 
             // TODO: send the error to remote logging infrastructure
