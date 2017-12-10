@@ -9,14 +9,14 @@
 
 
 <div class="row control-box">
-    <div class="col-sm-4 text-left">
+    <div class="col-md-4 col-sm-12 text-left">
         <div class="navbar action-box">
             <button type="button" class="btn btn-primary" (click)="addUserModal.show()">Add User</button>
         </div>
     </div>
-    <div class="col-sm-8 text-right">
+    <div class="col-md-8 col-sm-12 text-right">
         <div class="form-group search-box">
-            <input type="text" class="form-control" id="searchUser" placeholder="Search Users .." />
+            <input type="text" class="form-control" id="userFilter.lastName" [(ngModel)]="userFilter.lastName" [value]="userFilter.firstName" placeholder="Search Users .." />
         </div>
     </div>
 
@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of users |filterBy:userFilter| paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                 <td> {{ user.id }}</td>
                 <td> {{ user.firstName }} </td>
                 <td> {{ user.lastName }} </td>
@@ -44,6 +44,7 @@
                 </td>
             </tr>
         </tbody>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </table>
 </div>
 {{diagnostic}}

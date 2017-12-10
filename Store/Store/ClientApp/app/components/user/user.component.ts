@@ -14,15 +14,15 @@ import { Observable } from "rxjs/Observable";
 
 })
 export class UserComponent implements OnInit {
+   model: User = new User(null, "", "");
+
     user: User;
     public users: User[];
-    model: User = {
-        id: null,
-        firstName: "",
-        lastName: "",
-        rowNumber: "rowNumber"
 
-    };
+    p: number = 1;
+   
+    userFilter: any = { lastName: null};
+
 
   
     // Injecting UserService. 
@@ -46,9 +46,7 @@ export class UserComponent implements OnInit {
     getUsers(): void {
         this.userService.getUsers().subscribe(users => this.users = users);
     }
-    //getAllUsers(): User[] {
-    //    return this.users;
-    //}
+
 
     // Todo https://angular.io/tutorial/toh-pt6#add-a-new-hero
     addUser(user: User): void {

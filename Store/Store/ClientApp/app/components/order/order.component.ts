@@ -26,10 +26,11 @@ export class OrderComponent implements OnInit {
         state: "",
         zipCode: "",
         rowNumber: "orderRowNumber",
-        user: new User
+        user: new User(null, "", "")
     }
-
-
+    userFilter: any = { userId: '' }
+    orderFilter: any = { city: '' }
+    page: number = 1;
 
     // Inject OrderService. 
     // the constructor defines a orderService property and further identifies it as a OrderService injection

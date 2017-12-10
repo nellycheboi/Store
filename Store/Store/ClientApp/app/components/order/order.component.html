@@ -13,23 +13,23 @@
 
 
 <div class="row control-box">
-    <div class="col-sm-2 text-left">
+    <div class="col-md-2 col-sm-12 text-left">
         <div class="navbar action-box">
             <button type="button" class="btn btn-primary" (click)=" addOrderModal.show()">Add Order</button>
         </div>
     </div>
-    <div class="col-sm-5">
+    <div class="col-md-5 col-md-12">
         <select class="form-control" id="userId" placeholder="Filter by user"
-                [(ngModel)]="model.userId"
+                [(ngModel)]="userFilter.userId"
                 required
                 #userId="ngModel"
                 name="userId">
             <option *ngFor="let user of users" [ngValue]="user.id" [selected]="filterOrders(user.id)">{{user.lastName}}, {{user.firstName}}</option>
         </select>
     </div>
-    <div class="col-sm-5 text-right">
+    <div class="col-md-5 col-md-12 text-right">
         <div class="form-group search-box">
-            <input type="text" class="form-control" id="searchOrder" placeholder="Search Orders .." />
+            <input type="text" class="form-control" id="searchOrder"[(ngModel)]="orderFilter.city" placeholder="Search Orders .." />
         </div>
     </div>
 </div>
@@ -49,7 +49,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let order of orders">
+            <tr *ngFor="let order of orders | filterBy: userFilter | filterBy: orderFilter| paginate: { itemsPerPage: 5, currentPage: page };">
                 <td> {{ order.trackingId}} </td>
                 <td> {{ order.userId }} </td>
                 <td> {{ order.addressName}} </td>

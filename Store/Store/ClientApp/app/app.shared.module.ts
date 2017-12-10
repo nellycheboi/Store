@@ -17,7 +17,8 @@ import { ModalModule } from 'ngx-bootstrap';
 import { UserService } from './services/user.service';
 import { OrderService } from './services/order.service';
 import { MessageService } from './services/message.service';
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 @NgModule({
@@ -37,7 +38,9 @@ import { MessageService } from './services/message.service';
         FormsModule,
         AppRoutingModule,
         MarkdownModule.forRoot(),
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        NgxPaginationModule,
+        FilterPipeModule
     ]
 })
 export class AppModuleShared {
