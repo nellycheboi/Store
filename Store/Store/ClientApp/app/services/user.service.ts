@@ -91,15 +91,24 @@ export class UserService {
     * @param result - optional value to return as the observable result
     */
     private handleError<T>(operation = 'operation', result?: T) {
-        return (httpErrorResponse: HttpErrorResponse): Observable<T> => {
+        return (err: HttpErrorResponse): Observable<T> => {
+            let errorMessage = "";
+            if (err.error instanceof Error) {
+                // A client-side or network error occurred. 
+                errorMessage = `An error occurred while ${operation}:, ${err.error.message}`;
+            } else {
+                // The backend returned an unsuccessful response code.
+                // The response body may contain clues as to what went wrong,
+                errorMessage = `An error occurred while ${operation}: Server returned code ${err.status}, body was: ${err.error}`;
+            }
 
             // TODO: send the error to remote logging infrastructure
-            console.error(httpErrorResponse); // log to console instead
+            console.error(err); // log to console instead
 
-            // TODO: better job of transforming error for user consumption
+
             const message: Message = {
                 type: MessageType.ERROR,
-                message: `${operation} Failed: ${httpErrorResponse.error}`
+                message: errorMessage
             }
             this.log(message);
 

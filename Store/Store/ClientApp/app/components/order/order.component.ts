@@ -32,29 +32,42 @@ export class OrderComponent implements OnInit {
     orderFilter: any = { city: '' }
     page: number = 1;
 
-    // Inject OrderService. 
-    // the constructor defines a orderService property and further identifies it as a OrderService injection
-    // The constructor is reserved for simple intiliization.
-    // ngOnInit other heavy duty setup i.e HTTP requests.
+    /**
+     * Both the UserService and the OrderService are injected into the component.
+     * The constructor defines both properties and further indetifies them as their respective service injections
+     * The constructor is reserved for simple initilization leaving the heavy duty such as HTTP Request to the server to ngOnInit.
+     * @param orderService used to interact with the order's API
+     * @param userService used to interact with the user's  API.
+     *      Every order is associated with a user. Users are need when edditing, adding and searching orders.
+     *      TODO: interact with the user compenent directly to get this information.
+     */
     constructor(private orderService: OrderService, private userService: UserService) { }
 
+    /**
+     * In Angular's lifeCycle hook this method is called once after the first ngOnChanges.
+     *      ngOnChanges is called before ngOnInit and whenever one or more data-bound input properties change.
+     * Populates  the users and the orders array.
+     * I considered putting this on ngOnChanges but this means we have to make Api calls anytime either of this is updated.
+     * For performance benefits, I will trigger array repopulation on select API Method calls.
+     */
     ngOnInit() {
         this.getOrders();
         this.getUsers();
     }
 
-    // observable is subscribe in the template using async pipe.
-    // with this angular deals with the subscription during the
-    // the lifecycle of the component.
-    // read more : https://hackernoon.com/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
-    // we are making a call to orderService getOrders which returns 
-    // an observable that we assing to the users$ property of this class.
-    // It is best practice to use $ in observable instance
+  /**
+     * Polulates the users array asynchronously.
+     * Makes a call the getOrders() of userService, which returns an Observable array of orders.
+     * It waits for the observable to emit the array of orders then subscribe passes the emitted array to the callback.
+     */
     getOrders(): void {
         this.orderService.getOrders().subscribe(orders => this.orders = orders);
     }
 
-    // has to be a better way
+    /**
+     * Every order has an associated user.
+     * This methods populates the users array by making a call to userService
+     */
     getUsers(): void {
         this.userService.getUsers().subscribe(users => this.users = users);
     }
@@ -68,8 +81,8 @@ export class OrderComponent implements OnInit {
     }
 
     updateOrder(order: Order): void {
-       this.orderService.updateOrder(order).subscribe();
-       
+        this.orderService.updateOrder(order).subscribe();
+
     }
 
     deleteOrder(order: Order): void {
