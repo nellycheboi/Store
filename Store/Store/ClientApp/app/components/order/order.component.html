@@ -1,11 +1,11 @@
 ﻿
 <div class="row">
     <div class="col-md-12 text-left">
-       <h2>Our Order</h2>
+        <h2>Our Order</h2>
     </div>
 </div>
 
-   <app-messages></app-messages>
+<app-messages></app-messages>
 
 
 
@@ -15,21 +15,19 @@
 <div class="row control-box">
     <div class="col-md-2 col-sm-12 text-left">
         <div class="navbar action-box">
-            <button type="button" class="btn btn-primary" (click)=" addOrderModal.show()">Add Order</button>
+            <button type="button" class="btn btn-primary" (click)="addOrderModal.show()">Add Order</button>
         </div>
     </div>
-    <div class="col-md-5 col-md-12">
-        <select class="form-control" id="userId" placeholder="Filter by user"
-                [(ngModel)]="userFilter.userId"
-                required
-                #userId="ngModel"
-                name="userId">
+</div>
+<div class="row control-box">
+    <div class="col-md-6 col-md-12" *ngIf="users.length">
+        <select class="form-control" id="userId" placeholder="Filter by user">
             <option *ngFor="let user of users" [ngValue]="user.id" [selected]="filterOrders(user.id)">{{user.lastName}}, {{user.firstName}}</option>
         </select>
     </div>
-    <div class="col-md-5 col-md-12 text-right">
+    <div class="col-md-6 col-md-12 text-right">
         <div class="form-group search-box">
-            <input type="text" class="form-control" id="searchOrder"[(ngModel)]="orderFilter.city" placeholder="Search Orders .." />
+            <input type="text" class="form-control" id="searchOrder" placeholder="Search Orders .." />
         </div>
     </div>
 </div>
@@ -49,7 +47,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let order of orders | filterBy: userFilter | filterBy: orderFilter| paginate: { itemsPerPage: 5, currentPage: page };">
+            <tr *ngFor="let order of orders |  paginate: { itemsPerPage: 5, currentPage: page };">
                 <td> {{ order.trackingId}} </td>
                 <td> {{ order.userId }} </td>
                 <td> {{ order.addressName}} </td>
@@ -90,24 +88,24 @@
                         Tracking Id is required
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="required" for="userId">User</label>
-                   <div>
-                       <select class="form-control"  id="userId"
-                               [(ngModel)]="model.userId"
-                               required
-                               #userId="ngModel"
-                               name="userId">
-                           <option *ngFor="let user of users" [ngValue]="user.id">{{user.lastName}}, {{user.firstName}}</option>
-                       </select>
-                       <div [hidden]="userId.valid || userId.pristine"
-                            class="alert alert-danger">
-                           Every order must be associated with a user
-                       </div>
-                   </div>
-                        
-</div>
+                    <div>
+                        <select class="form-control" id="userId"
+                                [(ngModel)]="model.userId"
+                                required
+                                #userId="ngModel"
+                                name="userId">
+                            <option *ngFor="let user of users" [ngValue]="user.id">{{user.lastName}}, {{user.firstName}}</option>
+                        </select>
+                        <div [hidden]="userId.valid || userId.pristine"
+                             class="alert alert-danger">
+                            Every order must be associated with a user
+                        </div>
+                    </div>
+
+                </div>
                 <div class="form-group">
                     <label for="addressName">Street Name</label>
                     <input type="text" class="form-control" id="addressName" placeholder="Mobius"
@@ -233,13 +231,13 @@
                 <ul>
                     <li>
                         <label>
-                           First Name:
+                            First Name:
                         </label>
                         {{ model.user.firstName }}
                     </li>
                     <li>
                         <label>
-                           Last Name:
+                            Last Name:
                         </label>
                         {{ model.user.lastName }}
                     </li>

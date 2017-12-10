@@ -18,7 +18,7 @@ import { UserService } from './services/user.service';
 import { OrderService } from './services/order.service';
 import { MessageService } from './services/message.service';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FilterPipeModule } from 'ngx-filter-pipe';
+
 
 
 @NgModule({
@@ -40,7 +40,6 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
         MarkdownModule.forRoot(),
         ModalModule.forRoot(),
         NgxPaginationModule,
-        FilterPipeModule
     ]
 })
 export class AppModuleShared {

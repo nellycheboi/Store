@@ -40,6 +40,7 @@ export class UserService {
     }
     ///Create
     addUser(user: User): Observable<User> {
+        console.log(JSON.stringify(user));
         const message: Message = {
             type: MessageType.SUCCESS,
             message: `Added ${user.lastName}, ${user.firstName}`
@@ -99,7 +100,7 @@ export class UserService {
             } else {
                 // The backend returned an unsuccessful response code.
                 // The response body may contain clues as to what went wrong,
-                errorMessage = `An error occurred while ${operation}: Server returned code ${err.status}, body was: ${err.error}`;
+                errorMessage = `An error occurred while ${operation}: Server returned code ${err.statusText}`;
             }
 
             // TODO: send the error to remote logging infrastructure

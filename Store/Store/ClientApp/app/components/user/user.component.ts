@@ -14,12 +14,16 @@ import { Observable } from "rxjs/Observable";
 
 })
 export class UserComponent implements OnInit {
-   model: User = new User(null, "", "");
-
     user: User;
-    public users: User[];
+    model: User = {
+        id: 0,
+        firstName: "",
+        lastName: "",
+        rowNumber: "rowNumber"
+    }
+    users: User[];
 
-    p: number = 1;
+    page: number = 1;
    
     userFilter: any = { lastName: null};
 
@@ -51,7 +55,7 @@ export class UserComponent implements OnInit {
     getUsers(): void {
         this.userService.getUsers().subscribe(users => this.users = users);
     }
-
+  
 
    /**
     * Accepting a user instance. It passes the user instance to the addUser of userService.

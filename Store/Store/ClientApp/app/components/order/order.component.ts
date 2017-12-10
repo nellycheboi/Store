@@ -26,10 +26,8 @@ export class OrderComponent implements OnInit {
         state: "",
         zipCode: "",
         rowNumber: "orderRowNumber",
-        user: new User(null, "", "")
+        user: new User
     }
-    userFilter: any = { userId: '' }
-    orderFilter: any = { city: '' }
     page: number = 1;
 
     /**
@@ -55,11 +53,11 @@ export class OrderComponent implements OnInit {
         this.getUsers();
     }
 
-  /**
-     * Polulates the users array asynchronously.
-     * Makes a call the getOrders() of userService, which returns an Observable array of orders.
-     * It waits for the observable to emit the array of orders then subscribe passes the emitted array to the callback.
-     */
+    /**
+       * Polulates the users array asynchronously.
+       * Makes a call the getOrders() of userService, which returns an Observable array of orders.
+       * It waits for the observable to emit the array of orders then subscribe passes the emitted array to the callback.
+       */
     getOrders(): void {
         this.orderService.getOrders().subscribe(orders => this.orders = orders);
     }

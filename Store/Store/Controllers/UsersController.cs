@@ -83,6 +83,11 @@ namespace StoreDataLayer.Controllers
         }
 
         // POST: api/Users
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/aspnet/core/mvc/models/model-binding
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
