@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../models/user';
 
 import { UserService } from '../../services/user.service'
@@ -46,6 +46,9 @@ export class UserComponent implements OnInit {
     getUsers(): void {
         this.userService.getUsers().subscribe(users => this.users = users);
     }
+    //getAllUsers(): User[] {
+    //    return this.users;
+    //}
 
     // Todo https://angular.io/tutorial/toh-pt6#add-a-new-hero
     addUser(user: User): void {
@@ -53,7 +56,7 @@ export class UserComponent implements OnInit {
         this.userService.addUser(user)
             .subscribe(user => {
                 this.users.push(user);
-        });
+            });
     }
 
 
@@ -66,5 +69,6 @@ export class UserComponent implements OnInit {
         this.users = this.users.filter(u => u != user);
         this.userService.deleteUser(user).subscribe();
     }
+   
     get diagnostic() { return JSON.stringify(this.model); }
 }

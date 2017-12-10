@@ -7,6 +7,7 @@ import { of } from 'rxjs/Observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Message } from "../models/message";
 import { MessageType } from "../models/messageType";
+import { HttpErrorResponse } from "@angular/common/http";
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -90,15 +91,15 @@ export class UserService {
     * @param result - optional value to return as the observable result
     */
     private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
+        return (httpErrorResponse: HttpErrorResponse): Observable<T> => {
 
             // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
+            console.error(httpErrorResponse); // log to console instead
 
             // TODO: better job of transforming error for user consumption
             const message: Message = {
                 type: MessageType.ERROR,
-                message: `${operation} Failed: ${error.message}`
+                message: `${operation} Failed: ${httpErrorResponse.error}`
             }
             this.log(message);
 

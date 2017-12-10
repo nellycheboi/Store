@@ -16,7 +16,9 @@ import { AppRoutingModule } from './app-routing.module'
 import { ModalModule } from 'ngx-bootstrap';
 import { UserService } from './services/user.service';
 import { OrderService } from './services/order.service';
-import { MessageService } from './services/message.service'
+import { MessageService } from './services/message.service';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
     declarations: [
@@ -35,8 +37,7 @@ import { MessageService } from './services/message.service'
         FormsModule,
         AppRoutingModule,
         MarkdownModule.forRoot(),
-        ModalModule.forRoot(),
-
+        ModalModule.forRoot()
     ]
 })
 export class AppModuleShared {

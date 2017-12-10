@@ -72,7 +72,7 @@ namespace StoreDataLayer.Controllers
 
             if (id != order.TrackingId)
             {
-                return BadRequest();
+                return BadRequest("${id}");
             }
 
             _context.Entry(order).State = EntityState.Modified;
@@ -85,13 +85,18 @@ namespace StoreDataLayer.Controllers
             {
                 if (!OrderExists(id))
                 {
-                    return NotFound();
+                    return NotFound($"{id} is nologer available in the system. Maybe it was removed by another user.");
                 }
                 else
                 {
                     throw;
                 }
             }
+            catch (DbUpdateException e)
+            {
+                return BadRequest("Make sure you have a valid associated user");
+            }
+
 
             return NoContent();
         }
@@ -123,7 +128,7 @@ namespace StoreDataLayer.Controllers
             var order = await _context.Orders.SingleOrDefaultAsync(m => m.TrackingId == id);
             if (order == null)
             {
-                return NotFound();
+                return NotFound($"{id} is nologer available in the system. Maybe it was removed by another user.");
             }
 
             _context.Orders.Remove(order);

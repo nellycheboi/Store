@@ -1,9 +1,11 @@
-﻿import { Component, OnInit, Input } from '@angular/core';
+﻿import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { Order } from '../../models/order';
 import { Observable } from 'rxjs/Observable';
 import { OrderService } from '../../services/order.service'
 import { User } from "../../models/user";
+import { UserService } from "../../services/user.service";
+
 
 @Component({
     selector: 'order',
@@ -13,10 +15,11 @@ import { User } from "../../models/user";
 })
 export class OrderComponent implements OnInit {
     order: Order;
+    public users: User[];
     public orders: Order[];
     model: Order = {
         trackingId: "",
-        userId: "",
+        userId: null,
         streetName: "",
         streetAddress: "",
         city: "",
@@ -32,10 +35,11 @@ export class OrderComponent implements OnInit {
     // the constructor defines a orderService property and further identifies it as a OrderService injection
     // The constructor is reserved for simple intiliization.
     // ngOnInit other heavy duty setup i.e HTTP requests.
-    constructor(private orderService: OrderService) { }
+    constructor(private orderService: OrderService, private userService: UserService) { }
 
     ngOnInit() {
-        this.getOrders()
+        this.getOrders();
+        this.getUsers();
     }
 
     // observable is subscribe in the template using async pipe.
@@ -49,6 +53,10 @@ export class OrderComponent implements OnInit {
         this.orderService.getOrders().subscribe(orders => this.orders = orders);
     }
 
+    // has to be a better way
+    getUsers(): void {
+        this.userService.getUsers().subscribe(users => this.users = users);
+    }
 
     addOrder(order: Order): void {
         if (!order) { return; }
@@ -59,11 +67,16 @@ export class OrderComponent implements OnInit {
     }
 
     updateOrder(order: Order): void {
-        this.orderService.updateOrder(order).subscribe();
+       this.orderService.updateOrder(order).subscribe();
+       
     }
 
     deleteOrder(order: Order): void {
         this.orders = this.orders.filter(o => o != order);
         this.orderService.deleteUser(order.trackingId).subscribe;
+    }
+
+    filterOrders(id: number): void {
+        this.orders.filter(order => order.userId === id)
     }
 }

@@ -2,7 +2,7 @@
 
 export class Order {
    trackingId: string;
-   userId: string;
+   userId: number | null;
    streetName: string;
    streetAddress: string;
    city: string;
