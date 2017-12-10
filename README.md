@@ -1,8 +1,8 @@
-# Store
+# Store:
 
 This [project](https://github.com/nellycheboi12/Store) uses ASP.Net Core 2.0
 
-## Setup
+# Setup:
   ```
     git clone https://github.com/nellycheboi12/Store
     Update-Database //Powershell, PM Manager visual studio.
@@ -13,6 +13,8 @@ This [project](https://github.com/nellycheboi12/Store) uses ASP.Net Core 2.0
 
   ```
 # Features:
+Some of the features included in this applications are
+
 ## Cross site request forgery(XSRF)
 [Angular users a convention to address XSRF ](https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery#javascript-ajax-and-spas)
 If a server sends an cookie with the name XSRF-TOKEN the angular http service will automatically add the value of this cookie to the header, with the name X-XSRF-TOKEN, when it sends the request back to the server. The server can then detect this header and validate it contents.
