@@ -1,6 +1,7 @@
 # Store
 
 This [project](https://github.com/nellycheboi12/Store) uses ASP.Net Core 2.0
+
 ## Setup
   ```
     git clone https://github.com/nellycheboi12/Store
@@ -64,43 +65,40 @@ The RowNumber is used as a tracking token. It is incremented every time the each
 
 ```
 public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User user)
+{
+...
+
+   _context.Entry(user).State = EntityState.Modified;
+
+   try
+   {
+       await _context.SaveChangesAsync();
+   }
+   catch (DbUpdateConcurrencyException)
+   {
+       if (!UserExists(id))
        {
-           if (!ModelState.IsValid)
-           {
-               return BadRequest(ErrorMessages.Invalid);
-           }
-
-           if (id != user.ID)
-           {
-               return BadRequest(ErrorMessages.Invalid);
-           }
-
-           _context.Entry(user).State = EntityState.Modified;
-
-           try
-           {
-               await _context.SaveChangesAsync();
-           }
-           catch (DbUpdateConcurrencyException)
-           {
-               if (!UserExists(id))
-               {
-                   return NotFound(ErrorMessages.EntryDeleted);
-               }
-               else
-               {
-                   return BadRequest(ErrorMessages.EntryChanged);
-               }
-           }
-
-           return NoContent();
+           return NotFound(ErrorMessages.EntryDeleted);
        }
-```
+       else
+       {
+           return BadRequest(ErrorMessages.EntryChanged);
+       }
+   }
 
+  ...
+}
+```
+[Read More](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/concurrency#handling-concurrency)
 
 ## Server Side Pre-rendering
 
+Utilizes asp.net core 2.0 server side prerendering. Whose benefits include:
 
+  - dramatic improvement to perceived performance. The user sees the UI sooner while in the background large bundle of JavaScript could be downloading, parsing and executing and the automatically takes over to make the application fully functional.
+  - supports web crawlers that might not execute JavaScript.
+
+[Read More](http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/)
 
 
 ## Design Architecture
@@ -154,6 +152,6 @@ public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User use
   - [Angular Tutorial](https://angular.io/tutorial)
   - [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/data/)
   - [ASP.NET Template](http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/)
-  [XRSF](https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery)
+  -[XRSF](https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery)
   - [.NET Core 2.0](https://blogs.msdn.microsoft.com/webdev/2017/08/14/announcing-asp-net-core-2-0/)
   -[Filter](https://github.com/VadimDez/ngx-filter-pipe) [Pagination](https://ciphertrick.com/2017/08/01/search-sort-pagination-in-angular/)
