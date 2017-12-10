@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StoreDataLayer.Data;
-using StoreDataLayer.Models;
+using Store.Data;
+using Store.Models;
 using Microsoft.EntityFrameworkCore.Query;
+using Store.Controllers;
 
-namespace StoreDataLayer.Controllers
+namespace Store.Controllers
 {
     [Produces("application/json")]
     [Route("api/orders")]
@@ -45,7 +46,7 @@ namespace StoreDataLayer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ErrorMessages.Invalid);
             }
 
             var order = await _context.Orders
@@ -67,12 +68,12 @@ namespace StoreDataLayer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ErrorMessages.Invalid);
             }
 
             if (id != order.TrackingId)
             {
-                return BadRequest("${id}");
+                return BadRequest($"{ErrorMessages.Invalid} ${id}");
             }
 
             _context.Entry(order).State = EntityState.Modified;
@@ -85,16 +86,16 @@ namespace StoreDataLayer.Controllers
             {
                 if (!OrderExists(id))
                 {
-                    return NotFound($"{id} is nologer available in the system. Maybe it was removed by another user.");
+                    return NotFound(ErrorMessages.NotFound);
                 }
                 else
                 {
                     throw;
                 }
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
-                return BadRequest("Make sure the tracking order is unique or the order has and associated user");
+                return BadRequest(ErrorMessages.OrderDuplicatedId);
             }
 
 
@@ -113,16 +114,16 @@ namespace StoreDataLayer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ErrorMessages.Invalid);
             }
             try
             {
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
-                return BadRequest("Make sure the tracking order is unique or the order has and associated user");
+                return BadRequest(ErrorMessages.OrderDuplicatedId);
             }
             return NoContent();
             //return CreatedAtAction("GetOrder", new { id = order.TrackingId }, order);
@@ -134,13 +135,13 @@ namespace StoreDataLayer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ErrorMessages.Invalid);
             }
 
             var order = await _context.Orders.SingleOrDefaultAsync(m => m.TrackingId == id);
             if (order == null)
             {
-                return NotFound($"{id} is nologer available in the system. Maybe it was removed by another user.");
+                return NotFound(ErrorMessages.NotFound);
             }
 
             _context.Orders.Remove(order);

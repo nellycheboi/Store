@@ -76,7 +76,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)="addOrderModal.hide(); addOrder(model); orderForm.reset()" #orderForm="ngForm">
+            <form class="well" (ngSubmit)="addOrderModal.hide(); orderForm.reset(); addOrder(model); " #orderForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="trackingId">Tracking Id</label>
                     <input type="text" class="form-control" id="trackingId" placeholder="123978"

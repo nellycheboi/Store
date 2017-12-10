@@ -1,10 +1,10 @@
-﻿using StoreDataLayer.Models;
+﻿using Store.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StoreDataLayer.Data
+namespace Store.Data
 {
     public class DbIntializer
     {

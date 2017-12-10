@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StoreDataLayer.Data;
+using Store.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Store

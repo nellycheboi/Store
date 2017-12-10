@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StoreDataLayer.Data;
-using StoreDataLayer.Models;
+using Store.Data;
+using Store.Models;
 
-namespace StoreDataLayer.Controllers
+namespace Store.Controllers
 {
     [Produces("application/json")]
     [Route("api/Users")]
@@ -53,12 +51,12 @@ namespace StoreDataLayer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ErrorMessages.Invalid);
             }
 
             if (id != user.ID)
             {
-                return BadRequest();
+                return BadRequest(ErrorMessages.Invalid);
             }
 
             _context.Entry(user).State = EntityState.Modified;
@@ -71,7 +69,7 @@ namespace StoreDataLayer.Controllers
             {
                 if (!UserExists(id))
                 {
-                    return NotFound();
+                    return NotFound(ErrorMessages.NotFound);
                 }
                 else
                 {
@@ -91,9 +89,10 @@ namespace StoreDataLayer.Controllers
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
+
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ErrorMessages.Invalid);
             }
 
             _context.Users.Add(user);
@@ -108,7 +107,7 @@ namespace StoreDataLayer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ErrorMessages.Invalid);
             }
 
             var user = await _context.Users.SingleOrDefaultAsync(m => m.ID == id);
