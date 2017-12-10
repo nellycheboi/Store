@@ -25,18 +25,17 @@ namespace Store.Data
         /// </summary>
         public DbSet<Order> Orders { get; set; }
 
+
         /// <summary>
         /// Among the many things that could be included here is overriding the table's name:
         ///     i.e modelBuilder.Entity<Order>().ToTable("Order");
         ///     I prefer the default Plurazation from the associated model. Resulting in tables: Users and Orders
-        ///     
-        /// 
         /// </summary>
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Order>().ToTable("Order");
-            
+
+
         }
     }
 

@@ -43,7 +43,12 @@ namespace Store.Models
         [DisplayName("Zip Code")]
         public string ZipCode { get; set; }
 
-        public string RowNumber { get; set; }
+        /// <summary>
+        /// For tracking concurrency. The timestap attribute specifies that the column is included in the where clause of the update and delete commands
+        /// Read more [https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/concurrency#handling-concurrency]
+        /// </summary>
+        [Timestamp]
+        public byte[] RowNumber { get; set; }
         
         /// <summary>
         /// Navigation Property. User entity holds the information of the associated User.

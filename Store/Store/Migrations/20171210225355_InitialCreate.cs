@@ -17,8 +17,7 @@ namespace Store.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     first_name = table.Column<string>(nullable: true),
                     last_name = table.Column<string>(nullable: true),
-                    order_id = table.Column<int>(nullable: false),
-                    RowNumber = table.Column<string>(nullable: true)
+                    order_id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +31,6 @@ namespace Store.Migrations
                     tracking_id = table.Column<string>(nullable: false),
                     address_name = table.Column<string>(nullable: false),
                     city = table.Column<string>(nullable: false),
-                    RowNumber = table.Column<string>(nullable: true),
                     state = table.Column<string>(nullable: false),
                     street_address = table.Column<string>(nullable: false),
                     user_id = table.Column<int>(nullable: false),

@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -9,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Store.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Http;
 
 namespace Store
 {
@@ -28,14 +27,16 @@ namespace Store
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+            // Configure the antiforgery service to look for a header named X - XSRF - TOKEN
+            //services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
             services.AddDbContext<StoreDbContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery
+        public void Configure(IApplicationBuilder app, IAntiforgery antiforgery, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -50,6 +51,23 @@ namespace Store
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            // Configure your app to provide a token in a cookie called XSRF-TOKEN
+            app.Use(next => _context =>
+            {
+                string path = _context.Request.Path.Value;
+                if (
+                    path.Contains("/api")
+                   )
+                {
+                    // We can send the request token as a JavaScript-readable cookie, 
+                    // and Angular will use it by default.
+                    var tokens = antiforgery.GetAndStoreTokens(_context);
+                    _context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                        new CookieOptions() { HttpOnly = false });
+                }
+
+                return next(_context);
+            });
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

@@ -86,11 +86,11 @@ namespace Store.Controllers
             {
                 if (!OrderExists(id))
                 {
-                    return NotFound(ErrorMessages.NotFound);
+                    return NotFound(ErrorMessages.EntryDeleted);
                 }
                 else
                 {
-                    throw;
+                    return BadRequest(ErrorMessages.EntryChanged);
                 }
             }
             catch (DbUpdateException)
@@ -98,7 +98,12 @@ namespace Store.Controllers
                 return BadRequest(ErrorMessages.OrderDuplicatedId);
             }
 
-
+            //// var orderToUpdate = await _context.Orders.FirstOrDefaultAsync(o => o.TrackingId == id);
+            //if (orderToUpdate == null)
+            //{
+            //    return HandleDeleteOrder();
+            //}
+            //// _context.Entry(order).Property("RowVersion").OriginalValue = order.RowNumber;
             return NoContent();
         }
 

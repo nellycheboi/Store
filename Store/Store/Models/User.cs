@@ -20,7 +20,12 @@ namespace Store.Models
         [Column("last_name")]
         public string LastName { get; set;  }
 
-        public string RowNumber { get; set; }
+        /// <summary>
+        /// For tracking concurrency. The timestap attribute specifies that the column is included in the where clause of the update and delete commands
+        /// Read more [https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/concurrency#handling-concurrency]
+        /// </summary>
+        [Timestamp]
+        public byte[] RowNumber { get; set; }
 
         /// <summary>
         /// A naviagation property. It holds all the orders entities associated to the given user.

@@ -69,11 +69,11 @@ namespace Store.Controllers
             {
                 if (!UserExists(id))
                 {
-                    return NotFound(ErrorMessages.NotFound);
+                    return NotFound(ErrorMessages.EntryDeleted);
                 }
                 else
                 {
-                    throw;
+                    return BadRequest(ErrorMessages.EntryChanged);
                 }
             }
 
@@ -97,6 +97,7 @@ namespace Store.Controllers
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+
 
             return CreatedAtAction("GetUser", new { id = user.ID }, user);
         }

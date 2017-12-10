@@ -11,7 +11,7 @@ using System;
 namespace Store.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20171206070027_InitialCreate")]
+    [Migration("20171210225355_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,10 +21,9 @@ namespace Store.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("StoreDataLayer.Models.Order", b =>
+            modelBuilder.Entity("Store.Models.Order", b =>
                 {
                     b.Property<string>("TrackingId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("tracking_id");
 
                     b.Property<string>("AddressName")
@@ -35,8 +34,6 @@ namespace Store.Migrations
                         .IsRequired()
                         .HasColumnName("city");
 
-                    b.Property<string>("RowNumber");
-
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnName("state");
@@ -45,7 +42,7 @@ namespace Store.Migrations
                         .IsRequired()
                         .HasColumnName("street_address");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserId")
                         .HasColumnName("user_id");
 
                     b.Property<string>("ZipCode")
@@ -54,12 +51,12 @@ namespace Store.Migrations
 
                     b.HasKey("TrackingId");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("StoreDataLayer.Models.User", b =>
+            modelBuilder.Entity("Store.Models.User", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -74,18 +71,16 @@ namespace Store.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnName("order_id");
 
-                    b.Property<string>("RowNumber");
-
                     b.HasKey("ID");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("StoreDataLayer.Models.Order", b =>
+            modelBuilder.Entity("Store.Models.Order", b =>
                 {
-                    b.HasOne("StoreDataLayer.Models.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserID")
+                    b.HasOne("Store.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
