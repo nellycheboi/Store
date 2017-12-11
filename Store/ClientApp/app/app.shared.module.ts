@@ -18,6 +18,9 @@ import { UserService } from './services/user.service';
 import { OrderService } from './services/order.service';
 import { MessageService } from './services/message.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterUserPipe } from './pipes/filterUser';
+import { FilterOrderBasedOnUser } from './pipes/filterOrderBasedOnUser';
+import { FilterOrderPipe } from './pipes/filterOrder';
 
 
 
@@ -28,7 +31,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
         HomeComponent,
         UserComponent,
         OrderComponent,
-        MessagesComponent
+        MessagesComponent,
+        FilterUserPipe,
+        FilterOrderBasedOnUser,
+        FilterOrderPipe
     ],
     // create a single instance of the following service and make them available to any class that asks for it
     providers: [UserService, OrderService, MessageService],

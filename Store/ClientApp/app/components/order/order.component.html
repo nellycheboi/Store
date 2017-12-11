@@ -16,13 +16,15 @@
 </div>
 <div class="row control-box">
     <div class="col-md-6 col-md-12" *ngIf="users.length">
-        <select class="form-control" id="userId" placeholder="Filter by user">
-            <option *ngFor="let user of users" [ngValue]="user.id" [selected]="">{{user.lastName}}, {{user.firstName}}</option>
+        <select class="form-control" id="userId" placeholder="Filter by user" [(ngModel)] ="filterUserId">
+            <option value=-1>All</option>
+            <option *ngFor="let user of users" [ngValue]="user.id" >{{user.lastName}}, {{user.firstName}}</option>
         </select>
     </div>
     <div class="col-md-6 col-md-12 text-right">
         <div class="form-group search-box">
-            <input type="text" class="form-control" id="searchOrder" placeholder="Search Orders .." />
+            <input type="text" class="form-control" [(ngModel)]="searchText"
+                           name="searchText" placeholder="Search Orders .." />
         </div>
     </div>
 </div>
@@ -42,9 +44,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let order of orders |  paginate: { itemsPerPage: 5, currentPage: page };">
+            <tr *ngFor="let order of orders | filterOrderBasedOnUser : filterUserId  | filterOrder : searchText | paginate: { itemsPerPage: 5, currentPage: page };">
                 <td> {{ order.trackingId}} </td>
-                <td> {{ order.userId }} </td>
+                <td> {{ order.user.lastName }}, {{ order.user.firstName }} </td>
                 <td> {{ order.addressName}} </td>
                 <td> {{ order.streetAddress}} </td>
                 <td> {{ order.city }} </td>

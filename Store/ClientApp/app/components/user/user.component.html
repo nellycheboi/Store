@@ -18,7 +18,7 @@
 <div class="row control-box">
     <div class="col-md-12 col-sm-12 text-right">
         <div class="form-group search-box">
-            <input type="text" class="form-control" placeholder="Search Users .." />
+            <input type="text" class="form-control" [(ngModel)]="searchText" name="searchText" placeholder="Search Users .." />
         </div>
     </div>
 </div>
@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users | paginate: { itemsPerPage: 5, currentPage: page }; let i = index">
+            <tr *ngFor="let user of users | filterUser: searchText |paginate: { itemsPerPage: 5, currentPage: page }; let i = index">
                 <td> {{ user.id }}</td>
                 <td> {{ user.firstName }} </td>
                 <td> {{ user.lastName }} </td>

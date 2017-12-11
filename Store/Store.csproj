@@ -25,6 +25,8 @@
     <None Remove="ClientApp\app\models\message.ts" />
     <None Remove="ClientApp\app\models\messageType.ts" />
     <None Remove="ClientApp\app\models\user.ts" />
+    <None Remove="ClientApp\app\pipes\filterOrder.ts" />
+    <None Remove="ClientApp\app\pipes\filterUser.ts" />
     <None Remove="ClientApp\app\services\message.service.ts" />
     <None Remove="ClientApp\app\services\order.service.ts" />
     <None Remove="ClientApp\app\services\user.service.ts" />
@@ -39,6 +41,9 @@
     <TypeScriptCompile Include="ClientApp\app\models\messageType.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\order.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\user.ts" />
+    <TypeScriptCompile Include="ClientApp\app\pipes\filterOrder.ts" />
+    <TypeScriptCompile Include="ClientApp\app\pipes\filterOrderBasedOnUser.ts" />
+    <TypeScriptCompile Include="ClientApp\app\pipes\filterUser.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\message.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\order.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\user.service.ts" />
