@@ -31,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users | filterUser: searchText |paginate: { itemsPerPage: 5, currentPage: page }; let i = index">
+            <tr *ngFor="let user of users | filterUser: searchText | paginate: { itemsPerPage: 5, currentPage: page }; let i = index">
                 <td> {{ user.id }}</td>
                 <td> {{ user.firstName }} </td>
                 <td> {{ user.lastName }} </td>
@@ -43,8 +43,8 @@
                 </td>
             </tr>
         </tbody>
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
     </table>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>
 
 <ng-template #loading>
@@ -64,7 +64,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)="addUser(model); addUserModal.hide();" #addUserForm="ngForm">
+            <form class="well" (ngSubmit)="addUser(model); addUserModal.hide(); addUserForm.reset()" #addUserForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="User"
@@ -175,7 +175,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)=" updateUser(model); updateUserModal.hide();" #updateUserForm="ngForm">
+            <form class="well" (ngSubmit)=" updateUser(model); updateUserModal.hide();updateUserForm.reset()" #updateUserForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="User"
