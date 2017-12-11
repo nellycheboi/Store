@@ -1,66 +1,67 @@
-﻿
-<div class="row">
-    <div class="col-md-12 text-left">
-        <h2>Our Order</h2>
-    </div>
-</div>
-
-<app-messages></app-messages>
-
-<div class="row control-box">
-    <div class="col-md-2 col-sm-12 text-left">
-        <div class="navbar action-box">
-            <button type="button" class="btn btn-primary" (click)="addOrderModal.show()">Add Order</button>
+﻿<div class="orders.lenght else loading">
+    <div class="row">
+        <div class="col-md-12 text-left">
+            <h2>Our Order</h2>
         </div>
     </div>
-</div>
-<div class="row control-box">
-    <div class="col-md-6 col-md-12" *ngIf="users.length">
-        <select class="form-control" id="userId" placeholder="Filter by user" [(ngModel)] ="filterUserId">
-            <option *ngFor="let user of users" [ngValue]="user.id" >{{user.lastName}}, {{user.firstName}}</option>
-        </select>
-    </div>
-    <div class="col-md-6 col-md-12 text-right">
-        <div class="form-group search-box">
-            <input type="text" class="form-control" [(ngModel)]="searchText"
-                           name="searchText" placeholder="Search Orders .." />
+
+    <app-messages></app-messages>
+
+    <div class="row control-box">
+        <div class="col-md-2 col-sm-12 text-left">
+            <div class="navbar action-box">
+                <button type="button" class="btn btn-primary" (click)="addOrderModal.show()">Add Order</button>
+            </div>
         </div>
     </div>
-</div>
-
-<div *ngIf="orders.length">
-    <table class="table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Tracking Id</th>
-                <th>User ID</th>
-                <th>Address Name</th>
-                <th>Street Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip Code</th>
-                <th>Operations</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let order of orders | filterOrderBasedOnUser : filterUserId  | filterOrder : searchText | paginate: { itemsPerPage: 5, currentPage: page };">
-                <td> {{ order.trackingId}} </td>
-                <td> {{ order.user.lastName }}, {{ order.user.firstName }} </td>
-                <td> {{ order.addressName}} </td>
-                <td> {{ order.streetAddress}} </td>
-                <td> {{ order.city }} </td>
-                <td> {{ order.state }} </td>
-                <td> {{ order.zipCode}} </td>
-                <td>
-                    <button class="btn btn-info" (click)="model=order; orderDetailModal.show()">Show</button>
-                    <button class="btn btn-success" (click)="model=order; updateOrderModal.show()">Change</button>
-                    <button class="btn btn-warning" (click)="model=order; deleteOrderModal.show()">Remove</button>
-                </td>
-            </tr>
-        </tbody>
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
-    </table>
-</div>
+    <div class="row control-box">
+        <div class="col-md-6 col-md-12" *ngIf="users.length">
+            <select class="form-control" id="userId" placeholder="Filter by user" [(ngModel)]="filterUserId">
+                <option *ngFor="let user of users" [ngValue]="user.id">{{user.lastName}}, {{user.firstName}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 col-md-12 text-right">
+            <div class="form-group search-box">
+                <input type="text" class="form-control" [(ngModel)]="searchText"
+                       name="searchText" placeholder="Search Orders .." />
+            </div>
+        </div>
+    </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Tracking Id</th>
+                    <th>User ID</th>
+                    <th>Address Name</th>
+                    <th>Street Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders | filterOrderBasedOnUser : filterUserId  | filterOrder : searchText | paginate: { itemsPerPage: 5, currentPage: page };">
+                    <td> {{ order.trackingId}} </td>
+                    <td> {{ order.user.lastName }}, {{ order.user.firstName }} </td>
+                    <td> {{ order.addressName}} </td>
+                    <td> {{ order.streetAddress}} </td>
+                    <td> {{ order.city }} </td>
+                    <td> {{ order.state }} </td>
+                    <td> {{ order.zipCode}} </td>
+                    <td>
+                        <button class="btn btn-info" (click)="model=order; orderDetailModal.show()">Show</button>
+                        <button class="btn btn-success" (click)="model=order; updateOrderModal.show()">Change</button>
+                        <button class="btn btn-warning" (click)="model=order; deleteOrderModal.show()">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </table>
+    </div>
+<ng-template #loading>
+    <loading></loading>
+</ng-template>
 <!--ADD NEW ORDER-->
 <div class="modal fade" bsModal #addOrderModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog">

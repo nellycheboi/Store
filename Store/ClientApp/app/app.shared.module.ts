@@ -10,7 +10,8 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
 import { OrderComponent } from './components/order/order.component';
-import {MessagesComponent } from './components/messages/messages.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 import { AppRoutingModule } from './app-routing.module'
 import { ModalModule } from 'ngx-bootstrap';
@@ -32,6 +33,7 @@ import { FilterOrderPipe } from './pipes/filterOrder';
         UserComponent,
         OrderComponent,
         MessagesComponent,
+        LoadingComponent,
         FilterUserPipe,
         FilterOrderBasedOnUser,
         FilterOrderPipe

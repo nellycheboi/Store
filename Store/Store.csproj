@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\loading\loading.component.ts" />
     <None Remove="ClientApp\app\models\message.ts" />
     <None Remove="ClientApp\app\models\messageType.ts" />
     <None Remove="ClientApp\app\models\user.ts" />
@@ -34,6 +35,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\loading\loading.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\messages\messages.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\order\order.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\user\user.component.ts" />

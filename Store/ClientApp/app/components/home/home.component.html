@@ -1,2 +1,8 @@
 <!--Uses ngx-markdown module to dispaly the content-->
-<markdown [data]="content"></markdown>
+<div *ngIf="content else loading">
+    <markdown [data]="content"></markdown>
+</div>
+
+<ng-template #loading>
+    <loading></loading>
+</ng-template>
