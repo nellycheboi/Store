@@ -11,7 +11,7 @@ namespace Store.Models
     public class Order
     {
         /// <summary>
-        /// 
+        ///  [DatabaseGenerated(DatabaseGeneratedOption.None)] prevents the database from automatically generating primary key.
         /// </summary>
         [Key]
         [Column("tracking_id")]

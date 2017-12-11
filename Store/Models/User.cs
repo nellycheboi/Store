@@ -27,12 +27,5 @@ namespace Store.Models
         [Timestamp]
         public byte[] RowNumber { get; set; }
 
-        /// <summary>
-        /// A naviagation property. It holds all the orders entities associated to the given user.
-        /// A User and Order have one-to-many relationship. 
-        ///
-        /// When specified by ICollection as opposed to List Entity framework creates a Hashset collection by default.
-        /// </summary>
-       /// public virtual ICollection<Order> Orders { get; set; }
     }
 }
