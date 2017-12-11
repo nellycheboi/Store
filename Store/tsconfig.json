@@ -12,6 +12,7 @@
     "lib": [ "es6", "dom" ],
     "types": [ "webpack-env" ]
   },
+
   "exclude": [ "bin", "node_modules" ],
   "atom": { "rewriteTsconfig": false }
 }

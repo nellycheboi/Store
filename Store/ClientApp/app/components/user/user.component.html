@@ -49,7 +49,7 @@
     </table>
 </div>
 
-
+<!--Add User-->
 <div class="modal fade" bsModal #addUserModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md">
@@ -60,7 +60,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)="addUserModal.hide(); addUser(model); userForm.reset()" #userForm="ngForm">
+            <form class="well" (ngSubmit)="addUserModal.hide(); addUser(model); addUserForm.reset()" #addUserForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="User"
@@ -129,7 +129,7 @@
                         {{ model.lastName }}
                     </li>
                 </ul>
-                <h2> Associated orders</h2>
+                <!--<h2> Associated orders</h2>
                 <ul>
                     <dt>
                         <label>
@@ -145,7 +145,7 @@
                         </label>
                         {{ model.lastName }}
                     </dt>
-                </ul>
+                </ul>-->
 
                 <div class="row">
                     <div class=" col-md-12 text-center">
@@ -166,12 +166,12 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title pull-left">Add User</h4>
+                <h4 class="modal-title pull-left">Update User</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="updateUserModal.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)="updateUserModal.hide(); updateUser(model);" #userForm="ngForm">
+            <form class="well" (ngSubmit)="updateUserModal.hide(); updateUserForm.reset(); updateUser(model); " #updateUserForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="User"
@@ -240,7 +240,7 @@
                         {{ model.lastName }}
                     </li>
                 </ul>
-                <h2> Associated orders will be delete too</h2>
+                <h2> Associated orders will be deleted too</h2>
                 <dl>
                     <dt>
                         <label>

@@ -17,7 +17,6 @@
 <div class="row control-box">
     <div class="col-md-6 col-md-12" *ngIf="users.length">
         <select class="form-control" id="userId" placeholder="Filter by user" [(ngModel)] ="filterUserId">
-            <option value=-1>All</option>
             <option *ngFor="let user of users" [ngValue]="user.id" >{{user.lastName}}, {{user.firstName}}</option>
         </select>
     </div>
@@ -73,7 +72,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)="addOrderModal.hide(); orderForm.reset(); addOrder(model); " #orderForm="ngForm">
+            <form class="well" (ngSubmit)="addOrderModal.hide(); addOrderForm.reset(); addOrder(model); " #addOrderForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="trackingId">Tracking Id</label>
                     <input type="text" class="form-control" id="trackingId" placeholder="123978"
@@ -266,7 +265,7 @@
                 </button>
             </div>
 
-            <form class="well" (ngSubmit)="updateOrderModal.hide(); updateOrder(model);" #orderForm="ngForm">
+            <form class="well" (ngSubmit)="updateOrderModal.hide(); updateOrder(model);" #updateOrderForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="trackingId">Tracking Id</label>
                     <input type="text" class="form-control" id="trackingId" placeholder="123978"
