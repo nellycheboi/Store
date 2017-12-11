@@ -72,7 +72,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)="addOrderModal.hide(); addOrderForm.reset(); addOrder(model); " #addOrderForm="ngForm">
+            <form class="well" (ngSubmit)=" addOrder(model); addOrderModal.hide();" #addOrderForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="trackingId">Tracking Id</label>
                     <input type="text" class="form-control" id="trackingId" placeholder="123978"
@@ -165,7 +165,7 @@
                                 class="btn btn-info" (click)="addOrderModal.hide()">
                             Close
                         </button>
-                        <button type="submit" class=" btn btn-success" [disabled]="!orderForm.form.valid">Submit</button>
+                        <button type="submit" class=" btn btn-success" [disabled]="!addOrderForm.form.valid">Submit</button>
                     </div>
                 </div>
             </form>
@@ -265,7 +265,7 @@
                 </button>
             </div>
 
-            <form class="well" (ngSubmit)="updateOrderModal.hide(); updateOrder(model);" #updateOrderForm="ngForm">
+            <form class="well" (ngSubmit)="updateOrder(model); updateOrderModal.hide();" #updateOrderForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="trackingId">Tracking Id</label>
                     <input type="text" class="form-control" id="trackingId" placeholder="123978"
@@ -355,7 +355,7 @@
                                 class="btn btn-info" (click)="updateOrderModal.hide()">
                             Close
                         </button>
-                        <button type="submit" class=" btn btn-success" [disabled]="!orderForm.form.valid">Update</button>
+                        <button type="submit" class=" btn btn-success" [disabled]="!updateOrderForm.form.valid">Update</button>
                     </div>
                 </div>
             </form>
