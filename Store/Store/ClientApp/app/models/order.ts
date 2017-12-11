@@ -9,7 +9,7 @@ export class Order {
    state: string;
    zipCode: string;
 
-    // Handling concurency
+   // Handling concurency
    rowNumber: string;
    user: User;
 }

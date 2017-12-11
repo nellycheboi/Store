@@ -4,12 +4,12 @@ This [project](https://github.com/nellycheboi12/Store) uses ASP.Net Core 2.0
 
 # Setup:
   ```
-    git clone https://github.com/nellycheboi12/Store
-    Update-Database //Powershell, PM Manager visual studio.
+  git clone https://github.com/nellycheboi12/Store
+  Update-Database //Powershell | PM Manager visual studio.
 
-    // Incase of errors try the following from the directory containing webpack.config.vendor.js i.e __ROOT__/store
-    // Make you npm is installed too.
-    webpack -- config webpack.config.vendor.js
+  // Incase of errors try the following from the directory containing webpack.config.vendor.js i.e __ROOT__/store
+  // Make you npm is installed too.
+  webpack -- config webpack.config.vendor.js
 
   ```
 # Features:
@@ -23,7 +23,7 @@ In ./startup.cs the ConfigureServices method configures the service to look for 
 ```
 public void ConfigureServices(IServiceCollection services)
 {
-   services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+  services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
    ....
 }
 ```
@@ -47,7 +47,7 @@ public void Configure(IApplicationBuilder app, IAntiforgery antiforgery, IHostin
       }
 
         return next(_context);
-    });
+  });
 
 }
 

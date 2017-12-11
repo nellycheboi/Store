@@ -19,23 +19,28 @@ namespace Store
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         /// <summary>
-        /// Configuring app to provide token in a cookie called XSRF-TOKEN
+        /// Add services to the container
+        /// Configures app to provide token in a cookie called XSRF-TOKEN
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             // Configure the antiforgery service to look for a header named X - XSRF - TOKEN
-            //services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
             services.AddDbContext<StoreDbContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         // https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// configures the app to provide XSRF-TOKEN
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="antiforgery"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IAntiforgery antiforgery, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

@@ -14,7 +14,6 @@ import { UserService } from "../../services/user.service";
 
 })
 export class OrderComponent implements OnInit {
-    order: Order;
     public users: User[];
     public orders: Order[];
     model: Order = {
@@ -69,7 +68,11 @@ export class OrderComponent implements OnInit {
     getUsers(): void {
         this.userService.getUsers().subscribe(users => this.users = users);
     }
-
+    /**
+    * Accepting an order instance. It passes the order instance to the addOrder of orderService.
+    * If the order saves successfully, the subscribe callback receives the new order and pushes it to the order list.
+    * @param user
+    */
     addOrder(order: Order): void {
         if (!order) { return; }
         this.orderService.addOrder(order)
@@ -77,18 +80,27 @@ export class OrderComponent implements OnInit {
                 this.orders.push(order);
             });
     }
-
+    /**
+     * Accepting an order instance. It passes the order instance to the updateOrder of orderService.
+     * There is nothing for the component to do with the Observalble returned by the orderService.updateOrder but it must subscribe anyway.
+     * [https://angular.io/tutorial/toh-pt6#delete-a-hero] As a rule observable does nothing until something subscribes
+     * @param order
+     */
     updateOrder(order: Order): void {
         this.orderService.updateOrder(order).subscribe();
 
     }
-
+   /**
+     * Accepting an order instance. It passes the order instance to the deleteOrder of orderService.
+     * There is nothing for the component to do with the Observalble returned by the orderService.deleteOrder but it must subscribe anyway.
+     * [https://angular.io/tutorial/toh-pt6#delete-a-hero] As a rule observable does nothing until something subscribes
+     * @param order
+     */
     deleteOrder(order: Order): void {
         this.orders = this.orders.filter(o => o != order);
-        this.orderService.deleteUser(order.trackingId).subscribe;
+        this.orderService.deleteOrder(order.trackingId).subscribe;
     }
 
-    filterOrders(id: number): void {
-        this.orders.filter(order => order.userId === id)
-    }
+    // debbuging {{diagnostic }} to use it in the components view
+    get diagnostic() { return JSON.stringify(this.model); }
 }

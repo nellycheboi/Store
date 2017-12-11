@@ -51,6 +51,11 @@ namespace Store.Data
                     FirstName = "Fake",
                     LastName = "Baby",
                 },
+                new User
+                {
+                    FirstName = "Tank",
+                    LastName = "Baby",
+                },
             };
 
             foreach (User user in users)

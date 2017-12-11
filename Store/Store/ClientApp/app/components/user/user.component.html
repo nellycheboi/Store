@@ -14,7 +14,7 @@
             <button type="button" class="btn btn-primary" (click)="addUserModal.show()">Add User</button>
         </div>
     </div>
-    </div>
+</div>
 <div class="row control-box">
     <div class="col-md-12 col-sm-12 text-right">
         <div class="form-group search-box">
@@ -39,67 +39,67 @@
                 <td> {{ user.lastName }} </td>
 
                 <td>
-                    <button class = "btn btn-info" (click)="model= user; userDetailModal.show();">Show</button>
-                    <button class = "btn btn-success" (click)="model= user; updateUserModal.show();">Change</button>
-                    <button class = "btn btn-warning" (click)="model= user; deleteUserModal.show();">Remove</button>
+                    <button class="btn btn-info" (click)="model= user; userDetailModal.show();">Show</button>
+                    <button class="btn btn-success" (click)="model= user; updateUserModal.show();">Change</button>
+                    <button class="btn btn-warning" (click)="model= user; deleteUserModal.show();">Remove</button>
                 </td>
             </tr>
         </tbody>
         <pagination-controls (pageChange)="page = $event"></pagination-controls>
     </table>
 </div>
-{{diagnostic}}
 
-    <div class="modal fade" bsModal #addUserModal="bs-modal" [config]="{backdrop: 'static'}"
-         tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title pull-left">Add User</h4>
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="addUserModal.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form class="well" (ngSubmit)="addUserModal.hide(); addUser(model); userForm.reset()" #userForm="ngForm">
-                    <div class="form-group">
-                        <label class="required" for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="User"
-                               required
-                               [(ngModel)]="model.firstName"
-                               #firstName="ngModel"
-                               name="firstName">
-                        <div [hidden]="firstName.valid || firstName.pristine"
-                             class="alert alert-danger">
-                            First Name is required
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="required" for="lastName"> Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Name"
-                               required
-                               [(ngModel)]="model.lastName"
-                               #lastName="ngModel"
-                               name="lastName">
-                        <div [hidden]="lastName.valid || lastName.pristine"
-                             class="alert alert-danger">
-                            Last Name is required
-                        </div>
-                    </div>
-
-                    <div class=" row">
-                        <div class=" col-md-12 text-center">
-                            <button type="button"
-                                    class="btn btn-info" (click)="addUserModal.hide()">
-                                Close
-                            </button>
-                            <button type="submit" class=" btn btn-success" [disabled]="!userForm.form.valid">Submit</button>
-                        </div>
-                    </div>
-                </form>
+<div class="modal fade" bsModal #addUserModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Add User</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="addUserModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <form class="well" (ngSubmit)="addUserModal.hide(); addUser(model); userForm.reset()" #userForm="ngForm">
+                <div class="form-group">
+                    <label class="required" for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="User"
+                           required
+                           [(ngModel)]="model.firstName"
+                           #firstName="ngModel"
+                           name="firstName">
+                    <div [hidden]="firstName.valid || firstName.pristine"
+                         class="alert alert-danger">
+                        First Name is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required" for="lastName"> Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Name"
+                           required
+                           [(ngModel)]="model.lastName"
+                           #lastName="ngModel"
+                           name="lastName">
+                    <div [hidden]="lastName.valid || lastName.pristine"
+                         class="alert alert-danger">
+                        Last Name is required
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class=" col-md-12 text-center">
+                        <button type="button"
+                                class="btn btn-info" (click)="addUserModal.hide()">
+                            Close
+                        </button>
+                        <button type="submit" class=" btn btn-success" [disabled]="!userForm.form.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
 
 <!--Show curent user-->
@@ -146,16 +146,16 @@
                         {{ model.lastName }}
                     </dt>
                 </ul>
-            
-            <div class="row">
-                <div class=" col-md-12 text-center">
-                    <button type="button"
-                            class="btn btn-info" (click)="userDetailModal.hide()">
-                        Close
-                    </button>
+
+                <div class="row">
+                    <div class=" col-md-12 text-center">
+                        <button type="button"
+                                class="btn btn-info" (click)="userDetailModal.hide()">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
-                </div>
         </div>
     </div>
 </div>

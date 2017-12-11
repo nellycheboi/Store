@@ -24,7 +24,7 @@ namespace Store.Controllers
         }
 
        /// <summary>
-       /// Get: api/orders
+       /// GET: api/orders
        /// Uses eager loading to append associated user to the order.
        /// AsNoTracking has been appended to improve perfomance. It is also safe because no entities are updated in this context
        /// </summary>
@@ -40,7 +40,12 @@ namespace Store.Controllers
             return Ok(orders);
         }
 
-        // GET: api/Orders/5
+
+        /// <summary>
+        /// GET: api/orders/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrder([FromRoute] string id)
         {
@@ -62,7 +67,12 @@ namespace Store.Controllers
             return Ok(order);
         }
 
-        // PUT: api/Orders/5
+        /// <summary>
+        /// PUT: api/Orders/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="order"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder([FromRoute] string id, [FromBody] Order order)
         {
@@ -98,17 +108,11 @@ namespace Store.Controllers
                 return BadRequest(ErrorMessages.OrderDuplicatedId);
             }
 
-            //// var orderToUpdate = await _context.Orders.FirstOrDefaultAsync(o => o.TrackingId == id);
-            //if (orderToUpdate == null)
-            //{
-            //    return HandleDeleteOrder();
-            //}
-            //// _context.Entry(order).Property("RowVersion").OriginalValue = order.RowNumber;
             return NoContent();
         }
 
-        // POST: api/Orders
         /// <summary>
+        /// POST: api/Orders
         /// The client is responsible for setting the unique id, tracking id
         /// We need to make sure that they provided a unique id.
         /// </summary>
@@ -130,11 +134,15 @@ namespace Store.Controllers
             {
                 return BadRequest(ErrorMessages.OrderDuplicatedId);
             }
-            return NoContent();
-            //return CreatedAtAction("GetOrder", new { id = order.TrackingId }, order);
+
+            return CreatedAtAction("GetOrder", new { id = order.TrackingId }, order);
         }
 
-        // DELETE: api/Orders/5
+        /// <summary>
+        /// DELETE: api/Orders/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder([FromRoute] string id)
         {
@@ -154,7 +162,11 @@ namespace Store.Controllers
 
             return Ok(order);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool OrderExists(string id)
         {
             return _context.Orders.Any(e => e.TrackingId == id);

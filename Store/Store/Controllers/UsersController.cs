@@ -19,14 +19,23 @@ namespace Store.Controllers
             _context = context;
         }
 
-        // GET: api/Users
+
+        /// <summary>
+        /// GET: api/Users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
             return _context.Users;
         }
 
-        // GET: api/Users/5
+        // 5
+        /// <summary>
+        /// GET: api/Users/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser([FromRoute] int id)
         {
@@ -45,7 +54,12 @@ namespace Store.Controllers
             return Ok(user);
         }
 
-        // PUT: api/Users/5
+        /// <summary>
+        /// PUT: api/Users/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User user)
         {
@@ -80,9 +94,9 @@ namespace Store.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
         /// <summary>
-        /// https://docs.microsoft.com/en-us/aspnet/core/mvc/models/model-binding
+        /// POST: api/Users
+        /// POST: api/Users
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -102,7 +116,12 @@ namespace Store.Controllers
             return CreatedAtAction("GetUser", new { id = user.ID }, user);
         }
 
-        // DELETE: api/Users/5
+
+        /// <summary>
+        /// DELETE: api/Users/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
@@ -122,7 +141,7 @@ namespace Store.Controllers
 
             return Ok(user);
         }
-
+        ///
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.ID == id);

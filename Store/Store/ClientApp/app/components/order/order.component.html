@@ -7,11 +7,6 @@
 
 <app-messages></app-messages>
 
-
-
-<!-- We use the async pipe to automatically subscribe/unsubscribe to our observable -->
-
-
 <div class="row control-box">
     <div class="col-md-2 col-sm-12 text-left">
         <div class="navbar action-box">
@@ -22,7 +17,7 @@
 <div class="row control-box">
     <div class="col-md-6 col-md-12" *ngIf="users.length">
         <select class="form-control" id="userId" placeholder="Filter by user">
-            <option *ngFor="let user of users" [ngValue]="user.id" [selected]="filterOrders(user.id)">{{user.lastName}}, {{user.firstName}}</option>
+            <option *ngFor="let user of users" [ngValue]="user.id" [selected]="">{{user.lastName}}, {{user.firstName}}</option>
         </select>
     </div>
     <div class="col-md-6 col-md-12 text-right">

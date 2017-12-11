@@ -11,22 +11,40 @@ import { HttpErrorResponse } from "@angular/common/http";
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-}; 
+};
 
-// @Injectable decorator indicates that service might itself have dependencies
+/**
+ * @Injectable decorator indicates that service might itself have dependencies
+ */
 @Injectable()
 export class UserService {
+
     private usersUrl = 'api/users';
 
+    /**
+    * Declares and injects httpClient and MessageService to the services.
+    * The implemetation of the server is found in the __ROOT__/controllers/users
+    * @param http httpClient methods return an Observable of something.
+    * @param messageService Use to log any messages. Message component displays the messages to the user
+    */
     constructor(private http: HttpClient, private messageService: MessageService) { }
 
-    // asynchronous signature
+
+    /**
+     * asynchronous makes a call to the server and returns an Observable of User objects.
+     */
     getUsers(): Observable<User[]> {
         return this.http.get<User[]>(this.usersUrl);
     }
-
-    // construct a request url with the desired order id
-    // the server should respond with a single user
+    /**
+     * Accepting a userId as number. It appends to the usersUrl and makes a GET Request to retrive the user
+     * The tap operator looks at the observable values, logs a message to the messageServices and passes the along.
+     * Tap call back doesn't modify the values.
+     * To catch errors the observable request is piped from the http.get through RxJS catchError() operator.
+     * The catch error intercepts the failed observalble and passes to the HandleError.
+     * The returns an Observable of user object
+     * @param id
+     */
     getHero(id: number): Observable<User> {
         const url = `${this.usersUrl}/${id}`;
         const message: Message = {
@@ -38,7 +56,15 @@ export class UserService {
             catchError(this.handleError<User>(`Getting User id=${id}`))
         );
     }
-    ///Create
+    /**
+    * Accepting a user instance. It makes a POST request to the server to persist the new user.
+    * The tap operator looks at the observable values, logs a message to the messageServices and passes the along.
+    * Tap call back doesn't modify the values.
+    * To catch errors the observable request is piped from the http.get through RxJS catchError() operator.
+    * The catch error intercepts the failed observalble and passes to the HandleError.
+    * The returns an Observable of user object
+    * @param id
+    */
     addUser(user: User): Observable<User> {
         console.log(JSON.stringify(user));
         const message: Message = {
@@ -51,7 +77,15 @@ export class UserService {
         );
     }
 
-    /** PUT: update the user on the server */
+    /**
+    * Accepting a user instance. It makes a PUT request to the server to update the repspective user.
+    * The tap operator looks at the observable values, logs a message to the messageServices and passes the along.
+    * Tap call back doesn't modify the values.
+    * To catch errors the observable request is piped from the http.get through RxJS catchError() operator.
+    * The catch error intercepts the failed observalble and passes to the HandleError.
+    * The returns an Observable of user object
+    * @param id
+    */
     updateUser(user: User): Observable<any> {
         const url = `${this.usersUrl}/${user.id}`;
         const message: Message = {
@@ -63,7 +97,15 @@ export class UserService {
             catchError(this.handleError<any>(`Updating User: ${user.lastName}, ${user.firstName}`))
         );
     }
-
+    /**
+    * Accepting a user instance. It extracts userId and append its to the userUrl before making a DELETE request to the server to remove the respectice user.
+    * The tap operator looks at the observable values, logs a message to the messageServices and passes the along.
+    * Tap call back doesn't modify the values.
+    * To catch errors the observable request is piped from the http.get through RxJS catchError() operator.
+    * The catch error intercepts the failed observalble and passes to the HandleError.
+    * The returns an Observable of user object.
+    * @param id
+    */
     deleteUser(user: User): Observable<User> {
         const url = `${this.usersUrl}/${user.id}`;
         const message: Message = {
@@ -78,11 +120,13 @@ export class UserService {
     }
 
     // Logging a UserService message with the MessageService
+    /**
+     * Accepting a message of type Message. It pushes it to the message service so as to be available to component for rendering
+     * @param message
+     */
     private log(message: Message) {
         this.messageService.add(message);
     }
-
-
 
     /**
     * Handle Http operation that failed.
@@ -104,7 +148,8 @@ export class UserService {
             }
 
             // TODO: send the error to remote logging infrastructure
-            console.error(err); // log to console instead
+            // log to console instead
+            console.error(err);
 
 
             const message: Message = {

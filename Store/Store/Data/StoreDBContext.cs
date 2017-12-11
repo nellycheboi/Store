@@ -30,13 +30,11 @@ namespace Store.Data
         /// Among the many things that could be included here is overriding the table's name:
         ///     i.e modelBuilder.Entity<Order>().ToTable("Order");
         ///     I prefer the default Plurazation from the associated model. Resulting in tables: Users and Orders
+        ///  Left here for clarity
         /// </summary>
         /// <param name="modelBuilder"></param>
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) { }
 
-
-        }
     }
 
 

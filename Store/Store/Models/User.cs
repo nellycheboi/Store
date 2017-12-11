@@ -33,6 +33,6 @@ namespace Store.Models
         ///
         /// When specified by ICollection as opposed to List Entity framework creates a Hashset collection by default.
         /// </summary>
-       //public ICollection<Order> Orders { get; set; }
+       /// public virtual ICollection<Order> Orders { get; set; }
     }
 }

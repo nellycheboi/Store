@@ -5,7 +5,7 @@ export class User {
     firstName: string;
     lastName: string;
     
-    // handling concurency
+    // Handling concurency
     rowNumber: string;
    
 }

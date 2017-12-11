@@ -4,9 +4,6 @@ import { User } from '../../models/user';
 import { UserService } from '../../services/user.service'
 import { Observable } from "rxjs/Observable";
 
-
-
-
 @Component({
     selector: 'user',
     templateUrl: './user.component.html',
@@ -14,18 +11,16 @@ import { Observable } from "rxjs/Observable";
 
 })
 export class UserComponent implements OnInit {
-    user: User;
+    users: User[];
     model: User = {
         id: 0,
         firstName: "",
         lastName: "",
         rowNumber: "rowNumber"
     }
-    users: User[];
 
     page: number = 1;
-   
-    userFilter: any = { lastName: null};
+
 
 
     /**
@@ -36,13 +31,13 @@ export class UserComponent implements OnInit {
      */
     constructor(private userService: UserService) { }
 
-     /**
-     * In Angular's lifeCycle hook this method is called once after the first ngOnChanges.
-     *      ngOnChanges is called before ngOnInit and whenever one or more data-bound input properties change.
-     * Populates  the users and the orders array.
-     * I considered putting this on ngOnChanges but this means we have to make Api calls anytime either of this is updated.
-     * For performance benefits, I will trigger array repopulation on select API Method calls.
-     */
+    /**
+    * In Angular's lifeCycle hook this method is called once after the first ngOnChanges.
+    *      ngOnChanges is called before ngOnInit and whenever one or more data-bound input properties change.
+    * Populates  the users and the orders array.
+    * I considered putting this on ngOnChanges but this means we have to make Api calls anytime either of this is updated.
+    * For performance benefits, I will trigger array repopulation on select API Method calls.
+    */
     ngOnInit() {
         this.getUsers();
     }
@@ -55,13 +50,13 @@ export class UserComponent implements OnInit {
     getUsers(): void {
         this.userService.getUsers().subscribe(users => this.users = users);
     }
-  
 
-   /**
-    * Accepting a user instance. It passes the user instance to the addUser of userService.
-    * If the user saves successfully, the subscribe callback receives the new user and pushes it to the users list.
-    * @param user
-    */
+
+    /**
+     * Accepting a user instance. It passes the user instance to the addUser of userService.
+     * If the user saves successfully, the subscribe callback receives the new user and pushes it to the users list.
+     * @param user
+     */
     addUser(user: User): void {
         if (!user) { return; }
         this.userService.addUser(user)
@@ -70,16 +65,27 @@ export class UserComponent implements OnInit {
             });
     }
 
-
+    /**
+     * Accepting an user instance. It passes the user instance to the updateuser of userService.
+     * There is nothing for the component to do with the Observalble returned by the userService.updateUser but it must subscribe anyway.
+     * [https://angular.io/tutorial/toh-pt6#delete-a-hero] As a rule observable does nothing until something subscribes
+     * @param user
+     */
     updateUser(user: User): void {
         this.userService.updateUser(user)
             .subscribe();
     }
-
+    /**
+     * Accepting an user instance. It passes the user instance to the deleteuser of userService.
+     * There is nothing for the component to do with the Observalble returned by the userService.deleteUser but it must subscribe anyway.
+     * [https://angular.io/tutorial/toh-pt6#delete-a-hero] As a rule observable does nothing until something subscribes
+     * @param user
+     */
     deleteUser(user: User): void {
         this.users = this.users.filter(u => u != user);
         this.userService.deleteUser(user).subscribe();
     }
-   
+
+    // debbuging {{diagnostic }} to use it in the components view
     get diagnostic() { return JSON.stringify(this.model); }
 }

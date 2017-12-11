@@ -10,6 +10,9 @@ namespace Store.Models
 {
     public class Order
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Key]
         [Column("tracking_id")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
