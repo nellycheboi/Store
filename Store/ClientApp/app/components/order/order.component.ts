@@ -14,19 +14,10 @@ import { UserService } from "../../services/user.service";
 
 })
 export class OrderComponent implements OnInit {
+    order: Order;
     public users: User[];
     public orders: Order[];
-    model: Order = {
-        trackingId: "",
-        userId: null,
-        streetName: "",
-        streetAddress: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        rowNumber: "orderRowNumber",
-        user: new User
-    }
+    model: Order = this.getNewModel();
     page: number = 1;
 
     /**
@@ -50,6 +41,24 @@ export class OrderComponent implements OnInit {
     ngOnInit() {
         this.getOrders();
         this.getUsers();
+    }
+    /**
+     * return an order object with empty strings and null in its properties.
+     */
+    getNewModel(): Order {
+      const  order: Order = {
+            trackingId: "",
+            userId: null,
+            streetName: "",
+            streetAddress: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            rowNumber: "orderRowNumber",
+            user: new User
+        }
+      this.model = order;
+      return order;
     }
 
     /**
@@ -101,6 +110,6 @@ export class OrderComponent implements OnInit {
         this.orderService.deleteOrder(order.trackingId).subscribe;
     }
 
-    // debbuging {{diagnostic }} to use it in the components view
+    // debbuging {{diagnostic}} to use it in the components view
     get diagnostic() { return JSON.stringify(this.model); }
 }

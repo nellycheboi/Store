@@ -9,7 +9,7 @@
     <div class="row control-box">
         <div class="col-md-4 col-sm-12 text-left">
             <div class="navbar action-box">
-                <button type="button" class="btn btn-primary" (click)="addUserModal.show()">Add User</button>
+                <button type="button" class="btn btn-primary" (click)="model=getNewModel(); addUserModal.show()">Add User</button>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
     <loading></loading>
 </ng-template>
     
-
+{{diagnostic }}
 
 <!--Add User-->
 <div class="modal fade" bsModal #addUserModal="bs-modal" [config]="{backdrop: 'static'}"
@@ -64,7 +64,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)="addUser(model); addUserModal.hide(); addUserForm.reset()" #addUserForm="ngForm">
+            <form class="well" (ngSubmit)="addUser(model); addUserModal.hide();" #addUserForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="User"
@@ -175,7 +175,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)=" updateUser(model); updateUserModal.hide();updateUserForm.reset()" #updateUserForm="ngForm">
+            <form class="well" (ngSubmit)=" updateUser(model); updateUserModal.hide();" #updateUserForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="User"

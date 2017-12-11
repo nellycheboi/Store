@@ -39,7 +39,6 @@ namespace Store.Controllers
         /// <returns>A list of orders serialized as json</returns>
         ///  <response code="200">From passing the list to Microsoft.AspNetCore.Mvc.Ok that appends status 200 to the return </response>
         [HttpGet]
-        [ProducesResponseType(typeof(Order), 200)]
         public  IActionResult GetOrders()
         {
             List<Order> orders = _context.Orders
@@ -63,9 +62,6 @@ namespace Store.Controllers
         /// <response code="404">If the order was not found</response>
         /// <response code="400">If the Model state is not valid</response>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Order), 400)]
-        [ProducesResponseType(typeof(Order), 404)]
-        [ProducesResponseType(typeof(Order), 200)]
         public async Task<IActionResult> GetOrder([FromRoute] string id)
         {
             if (!ModelState.IsValid)
@@ -101,8 +97,6 @@ namespace Store.Controllers
         /// <response code="204">If the order was successfully updated</response>
         /// <response code="400">If the Model state is not valid</response>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(Order), 404)]
-        [ProducesResponseType(typeof(Order), 204)]
         public async Task<IActionResult> PutOrder([FromRoute] string id, [FromBody] Order order)
         {
             if (!ModelState.IsValid)
@@ -153,8 +147,6 @@ namespace Store.Controllers
         /// <response code="201">If the order was successfully created</response>
         /// <response code="400">If the Model state is not valid</response>
         [HttpPost]
-        [ProducesResponseType(typeof(Order), 400)]
-        [ProducesResponseType(typeof(Order), 201)]
         public async Task<IActionResult> PostOrder([FromBody] Order order)
         {
             if (!ModelState.IsValid)
@@ -186,9 +178,6 @@ namespace Store.Controllers
         /// <response code="400">If the Model state is not valid</response>
         /// <response code="404">If the order was not found</response>
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(Order), 400)]
-        [ProducesResponseType(typeof(Order), 404)]
-        [ProducesResponseType(typeof(Order), 200)]
         public async Task<IActionResult> DeleteOrder([FromRoute] string id)
         {
             if (!ModelState.IsValid)

@@ -13,7 +13,7 @@ namespace Store.Controllers
     /// Route attributes indicates the controller will handle requests make paths starting with api/users
     /// </summary>
     [Produces("application/json")]
-    [Route("api/Users")]
+    [Route("api/users")]
     public class UsersController : Controller
     {
         private readonly StoreDbContext _context;
@@ -55,9 +55,6 @@ namespace Store.Controllers
         /// <response code="404">If the user was not found</response>
         /// <response code="400">If the Model state is not valid</response>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(User), 400)]
-        [ProducesResponseType(typeof(User), 404)]
-        [ProducesResponseType(typeof(User), 200)]
         public async Task<IActionResult> GetUser([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -88,8 +85,6 @@ namespace Store.Controllers
         /// <response code="204">If the user was successfully updated</response>
         /// <response code="400">If the Model state is not valid</response>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(User), 404)]
-        [ProducesResponseType(typeof(User), 204)]
         public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User user)
         {
             if (!ModelState.IsValid)
@@ -134,8 +129,6 @@ namespace Store.Controllers
         /// <response code="201">If the user was successfully created</response>
         /// <response code="400">If the Model state is not valid</response>
         [HttpPost]
-        [ProducesResponseType(typeof(User), 400)]
-        [ProducesResponseType(typeof(User), 201)]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
 
@@ -164,9 +157,6 @@ namespace Store.Controllers
         /// <response code="400">If the Model state is not valid</response>
         /// <response code="404">If the user was not found</response>
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(User), 400)]
-        [ProducesResponseType(typeof(User), 200)]
-        [ProducesResponseType(typeof(User), 404)]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
             if (!ModelState.IsValid)

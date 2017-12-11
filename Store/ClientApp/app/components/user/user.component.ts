@@ -11,13 +11,9 @@ import { Observable } from "rxjs/Observable";
 
 })
 export class UserComponent implements OnInit {
+    user: User;
     users: User[];
-    model: User = {
-        id: 0,
-        firstName: "",
-        lastName: "",
-        rowNumber: "rowNumber"
-    }
+    model: User = this.getNewModel();
 
     page: number = 1;
 
@@ -41,7 +37,19 @@ export class UserComponent implements OnInit {
     ngOnInit() {
         this.getUsers();
     }
-
+    /**
+     * Returns a new user with it fields nullified or set to empty strings
+     */
+    getNewModel(): User {
+        const user: User = {
+            id: 0,
+            firstName: "",
+            lastName: "",
+            rowNumber: "rowNumber"
+        }
+        this.model = user;
+        return user;
+    }
     /**
      * Polulates the users array asynchronously.
      * Makes a call the getUsers() of userService, which returns an Observable array of users.
