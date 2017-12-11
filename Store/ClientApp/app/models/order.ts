@@ -10,6 +10,6 @@ export class Order {
    zipCode: string;
 
    // Handling concurency
-   rowNumber: string;
+   rowNumber: string | null;
    user: User;
 }

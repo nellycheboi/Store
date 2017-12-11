@@ -45,7 +45,7 @@ export class UserService {
      * The returns an Observable of user object
      * @param id
      */
-    getHero(id: number): Observable<User> {
+    getUser(id: number): Observable<User> {
         const url = `${this.usersUrl}/${id}`;
         const message: Message = {
             type: MessageType.SUCCESS,
@@ -66,7 +66,6 @@ export class UserService {
     * @param id
     */
     addUser(user: User): Observable<User> {
-        console.log(JSON.stringify(user));
         const message: Message = {
             type: MessageType.SUCCESS,
             message: `Added ${user.lastName}, ${user.firstName}`

@@ -45,7 +45,7 @@ export class UserComponent implements OnInit {
             id: 0,
             firstName: "",
             lastName: "",
-            rowNumber: "rowNumber"
+            rowNumber: null
         }
         this.model = user;
         return user;

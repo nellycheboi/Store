@@ -54,7 +54,7 @@ export class OrderComponent implements OnInit {
             city: "",
             state: "",
             zipCode: "",
-            rowNumber: "orderRowNumber",
+            rowNumber: null,
             user: new User
         }
       this.model = order;

@@ -6,6 +6,6 @@ export class User {
     lastName: string;
     
     // Handling concurency
-    rowNumber: string;
+    rowNumber: string | null;
    
 }
