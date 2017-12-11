@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -22,21 +21,26 @@ namespace Store
         /// <summary>
         /// Add services to the container
         /// Configures app to provide token in a cookie called XSRF-TOKEN
+        /// Using Dependency Injection adds the StoreDbContext into the container
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             // Configure the antiforgery service to look for a header named X - XSRF - TOKEN
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+
+            // Inject StoreDbContext in the container.
             services.AddDbContext<StoreDbContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc();
         }
 
-        // https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery
+        // 
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// configures the app to provide XSRF-TOKEN
+        ///  Read More : [https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery] 
         /// </summary>
         /// <param name="app"></param>
         /// <param name="antiforgery"></param>

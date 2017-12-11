@@ -1,38 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Store.Data;
 using Store.Models;
-using Microsoft.EntityFrameworkCore.Query;
-using Store.Controllers;
+using System.Collections.Generic;
 
 namespace Store.Controllers
 {
+    /// <summary>
+    /// [Produces("application/json")] declares that the controller action supports a content type of application/json
+    /// Route attributes indicates the controller will handle requests make paths starting with api/orders
+    /// </summary>
     [Produces("application/json")]
     [Route("api/orders")]
     public class OrdersController : Controller
     {
         private readonly StoreDbContext _context;
 
+        /// <summary>
+        /// The constructor injects the database context into the controller using Dependency injection.
+        /// The data context, StoreDbContext in namespace Store.Data, is used in each of the crud methods of the controller.
+        /// The StoreDbContext was inject into the container at application startup. See StartUp in Store namespace
+        /// </summary>
+        /// <param name="context"></param>
         public OrdersController(StoreDbContext context)
         {
             _context = context;
         }
 
-       /// <summary>
-       /// GET: api/orders
-       /// Uses eager loading to append associated user to the order.
-       /// AsNoTracking has been appended to improve perfomance. It is also safe because no entities are updated in this context
-       /// </summary>
-       /// <returns></returns>
+        /// <summary>
+        /// GET: api/orders
+        /// Uses eager loading to append associated user to the order.
+        /// AsNoTracking has been appended to improve perfomance. It is also safe because no entities are updated in this context
+        ///  [HttpGet]indicates action should only handle GET Requests
+        ///  Microsoft.AspNetCore.Mvc serializes the collection of orders json. 
+        /// </summary>
+        /// <returns>A list of orders serialized as json</returns>
+        ///  <response code="200">From passing the list to Microsoft.AspNetCore.Mvc.Ok that appends status 200 to the return </response>
         [HttpGet]
+        [ProducesResponseType(typeof(Order), 200)]
         public  IActionResult GetOrders()
         {
-            var orders = _context.Orders
+            List<Order> orders = _context.Orders
                 .Include(c => c.User)
                 .AsNoTracking()
                 .ToList();
@@ -42,11 +52,20 @@ namespace Store.Controllers
 
 
         /// <summary>
-        /// GET: api/orders/{id}
+        /// GET: api/orders/id
+        /// [HttpGet]indicates action should only handle GET Requests
+        /// [FromRoute] force the action to only read  the parameter from the route
+        /// Microsoft.AspNetCore.Mvc serializes the order instance to json. 
+        /// Queries the database for the user with the suppied trackingId.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>An order instance serialized as json</returns>
+        /// <response code="200">If the order was found</response>
+        /// <response code="404">If the order was not found</response>
+        /// <response code="400">If the Model state is not valid</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Order), 400)]
+        [ProducesResponseType(typeof(Order), 404)]
+        [ProducesResponseType(typeof(Order), 200)]
         public async Task<IActionResult> GetOrder([FromRoute] string id)
         {
             if (!ModelState.IsValid)
@@ -54,7 +73,7 @@ namespace Store.Controllers
                 return BadRequest(ErrorMessages.Invalid);
             }
 
-            var order = await _context.Orders
+            Order order = await _context.Orders
                 .Include(c => c.User)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.TrackingId == id);
@@ -69,11 +88,21 @@ namespace Store.Controllers
 
         /// <summary>
         /// PUT: api/Orders/{id}
+        /// [HttpPUT]indicates action should only handle PUT Requests
+        /// [FromRoute] forces the action to only read  the parameter from the route
+        /// [FromBody] forces the action to read data from the request body
+        /// Accepts new data items form the post requests body. Checks for its validity before before updating the associated entry in the database.
+        /// The client is responsible for setting the unique id, tracking id
+        /// Catches DbUpdateException if inserting failed.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="order"></param>
         /// <returns></returns>
+        /// <response code="204">If the order was successfully updated</response>
+        /// <response code="400">If the Model state is not valid</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(Order), 404)]
+        [ProducesResponseType(typeof(Order), 204)]
         public async Task<IActionResult> PutOrder([FromRoute] string id, [FromBody] Order order)
         {
             if (!ModelState.IsValid)
@@ -113,12 +142,19 @@ namespace Store.Controllers
 
         /// <summary>
         /// POST: api/Orders
+        /// [HttpPost]indicates action should only handle POST Requests
+        /// [FromBody] forces the action to read data from the request body
+        /// Accepts new data items form the post requests body. Checks for its validity before persisting it in the database.
         /// The client is responsible for setting the unique id, tracking id
-        /// We need to make sure that they provided a unique id.
+        /// Catches DbUpdateException if inserting failed.
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
+        /// <response code="201">If the order was successfully created</response>
+        /// <response code="400">If the Model state is not valid</response>
         [HttpPost]
+        [ProducesResponseType(typeof(Order), 400)]
+        [ProducesResponseType(typeof(Order), 201)]
         public async Task<IActionResult> PostOrder([FromBody] Order order)
         {
             if (!ModelState.IsValid)
@@ -140,10 +176,19 @@ namespace Store.Controllers
 
         /// <summary>
         /// DELETE: api/Orders/{id}
+        /// [HttpDelete] indicates action should only handle Delete Requests
+        /// [FromRoute] force the action to only read  the parameter from the route
+        /// Checks for the model validity before deleting the entry with the asscoatiated tracking id in the database.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <response code="200">If the order was successfully deleted</response>
+        /// <response code="400">If the Model state is not valid</response>
+        /// <response code="404">If the order was not found</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(Order), 400)]
+        [ProducesResponseType(typeof(Order), 404)]
+        [ProducesResponseType(typeof(Order), 200)]
         public async Task<IActionResult> DeleteOrder([FromRoute] string id)
         {
             if (!ModelState.IsValid)
@@ -163,10 +208,10 @@ namespace Store.Controllers
             return Ok(order);
         }
         /// <summary>
-        /// 
+        /// Accepting a tracking id. Checks if order with the given tracking id exists in the database
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Boolean: wether or not the order exists</returns>
         private bool OrderExists(string id)
         {
             return _context.Orders.Any(e => e.TrackingId == id);

@@ -8,12 +8,22 @@ using Store.Models;
 
 namespace Store.Controllers
 {
+    // <summary>
+    /// [Produces("application/json")] declares that the controller action supports a content type of application/json
+    /// Route attributes indicates the controller will handle requests make paths starting with api/users
+    /// </summary>
     [Produces("application/json")]
     [Route("api/Users")]
     public class UsersController : Controller
     {
         private readonly StoreDbContext _context;
 
+        /// <summary>
+        /// The constructor injects the database context into the controller using Dependency injection.
+        /// The data context, StoreDbContext in namespace Store.Data, is used in each of the crud methods of the controller.
+        /// The StoreDbContext was inject into the container at application startup. See StartUp in Store namespace
+        /// </summary>
+        /// <param name="context"></param>
         public UsersController(StoreDbContext context)
         {
             _context = context;
@@ -21,9 +31,14 @@ namespace Store.Controllers
 
 
         /// <summary>
-        /// GET: api/Users
+        /// GET: api/users
+        /// Uses eager loading to append associated user to the order.
+        /// AsNoTracking has been appended to improve perfomance. It is also safe because no entities are updated in this context
+        ///  [HttpGet]indicates action should only handle GET Requests
+        ///  Microsoft.AspNetCore.Mvc serializes the collection of users json. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of users serialized as json</returns>
+        ///  <response code="200">From passing the list to Microsoft.AspNetCore.Mvc.Ok that appends status 200 to the return </response>
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
