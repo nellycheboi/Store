@@ -15,7 +15,7 @@
 
         public static string EntryChanged = "Another user is updated the entry at the same time. Please reload the page and try again in a few moments.";
 
-        public static string EntryDeleted = "This entry was deleted by another user after you had loaded this page. Please readd the order if needed.";
+        public static string EntryDeleted = "This entry was deleted by another user after you had loaded this page. Please reload the page and try to readd it if needed.";
 
         public static string Invalid = "The entity you provided has one or more invalid attributes. Please sanitize the entry before resubmitting it";
     }
