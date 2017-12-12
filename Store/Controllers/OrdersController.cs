@@ -45,7 +45,6 @@ namespace Store.Controllers
                 .Include(c => c.User)
                 .AsNoTracking()
                 .ToList();
-
             return Ok(orders);
         }
 
@@ -99,6 +98,9 @@ namespace Store.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder([FromRoute] string id, [FromBody] Order order)
         {
+            // Do not make a new user from this post request
+            order.User = null; 
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ErrorMessages.Invalid);
@@ -149,6 +151,8 @@ namespace Store.Controllers
         [HttpPost]
         public async Task<IActionResult> PostOrder([FromBody] Order order)
         {
+            // Do not make a new user from this post request
+            order.User = null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ErrorMessages.Invalid);

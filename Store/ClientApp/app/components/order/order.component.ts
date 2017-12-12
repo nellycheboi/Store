@@ -46,7 +46,7 @@ export class OrderComponent implements OnInit {
      * return an order object with empty strings and null in its properties.
      */
     getNewModel(): Order {
-      const  order: Order = {
+        const order: Order = {
             trackingId: "",
             userId: null,
             streetName: "",
@@ -55,8 +55,14 @@ export class OrderComponent implements OnInit {
             state: "",
             zipCode: "",
             rowNumber: null,
-            user: new User
+            user: {
+                id: 0,
+                firstName: "",
+                lastName: "",
+                rowNumber: null
+            }
         }
+        
       this.model = order;
       return order;
     }
@@ -85,7 +91,7 @@ export class OrderComponent implements OnInit {
     addOrder(order: Order): void {
         if (!order) { return; }
         this.orderService.addOrder(order)
-            .subscribe(order => {
+            .subscribe(o => {
                 this.orders.push(order);
             });
     }
@@ -96,6 +102,7 @@ export class OrderComponent implements OnInit {
      * @param order
      */
     updateOrder(order: Order): void {
+
         this.orderService.updateOrder(order).subscribe();
 
     }

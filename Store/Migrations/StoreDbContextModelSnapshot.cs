@@ -71,9 +71,6 @@ namespace Store.Migrations
                     b.Property<string>("LastName")
                         .HasColumnName("last_name");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnName("order_id");
-
                     b.Property<byte[]>("RowNumber")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
@@ -86,7 +83,7 @@ namespace Store.Migrations
             modelBuilder.Entity("Store.Models.Order", b =>
                 {
                     b.HasOne("Store.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

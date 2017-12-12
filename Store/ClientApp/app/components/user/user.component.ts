@@ -68,7 +68,7 @@ export class UserComponent implements OnInit {
     addUser(user: User): void {
         if (!user) { return; }
         this.userService.addUser(user)
-            .subscribe(user => {
+            .subscribe(u => {
                 this.users.push(user);
             });
     }

@@ -61,7 +61,7 @@
     <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>
 
-{{diagnostic}}
+
 <ng-template #loading>
     <loading></loading>
 </ng-template>
@@ -77,7 +77,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="well" (ngSubmit)=" addOrder(model); addOrderModal.hide()" #addOrderForm="ngForm">
+            <form class="well" (ngSubmit)="(model.userId = model.user.id); addOrder(model); addOrderModal.hide()" #addOrderForm="ngForm">
                 <div class="form-group">
                     <label class="required" for="trackingId">Tracking Id</label>
                     <input type="text" class="form-control" id="trackingId" placeholder="123978"
@@ -95,11 +95,11 @@
                     <label class="required" for="userId">User</label>
                     <div>
                         <select class="form-control" id="userId"
-                                [(ngModel)]="model.userId"
+                                [(ngModel)]="model.user"
                                 required
                                 #userId="ngModel"
                                 name="userId">
-                            <option *ngFor="let user of users" [ngValue]="user.id">{{user.lastName}}, {{user.firstName}}</option>
+                            <option *ngFor="let user of users" [ngValue]="user">{{user.lastName}}, {{user.firstName}}</option>
                         </select>
                         <div [hidden]="userId.valid || userId.pristine"
                              class="alert alert-danger">
@@ -178,7 +178,6 @@
     </div>
 </div>
 
-{{diagonostic}}
 
 <!--Show Detail of the current order-->
 <div class="modal fade" bsModal #orderDetailModal="bs-modal" [config]="{backdrop: 'static'}"

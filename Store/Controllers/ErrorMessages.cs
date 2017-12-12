@@ -9,7 +9,7 @@
     {
         public static string NotFound = "The entry was not found. Perphaps it was modified by another user.";
 
-        public static string OrderDuplicatedId = "The tracking number you provided alreay exists. Provide a unique one. If the prior is nolonger needed, first delete it the try readding the order.";
+        public static string OrderDuplicatedId = "The tracking number you provided alreay exists. Provide a unique one. If the prior is nolonger needed, first delete it the try re-entering the order.";
 
         public static string OrderNeedsUser = "Every order needs to be associated with a user. Please select a associated order.";
 

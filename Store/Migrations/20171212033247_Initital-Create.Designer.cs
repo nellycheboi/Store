@@ -11,8 +11,8 @@ using System;
 namespace Store.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20171210225355_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20171212033247_Initital-Create")]
+    partial class InititalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,10 @@ namespace Store.Migrations
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnName("city");
+
+                    b.Property<byte[]>("RowNumber")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -68,8 +72,9 @@ namespace Store.Migrations
                     b.Property<string>("LastName")
                         .HasColumnName("last_name");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnName("order_id");
+                    b.Property<byte[]>("RowNumber")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("ID");
 
@@ -79,7 +84,7 @@ namespace Store.Migrations
             modelBuilder.Entity("Store.Models.Order", b =>
                 {
                     b.HasOne("Store.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

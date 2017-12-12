@@ -10,10 +10,6 @@ namespace Store.Models
         [Column("id")]
         public int ID { get; set; }
 
-        [ForeignKey("order_id")]
-        [Column("order_id")]
-        public int OrderId { get; set; }
-
         [Column("first_name")]
         public string FirstName { get; set; }
 

@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
 namespace Store.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InititalCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +15,7 @@ namespace Store.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     first_name = table.Column<string>(nullable: true),
                     last_name = table.Column<string>(nullable: true),
-                    order_id = table.Column<int>(nullable: false)
+                    RowNumber = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,6 +29,7 @@ namespace Store.Migrations
                     tracking_id = table.Column<string>(nullable: false),
                     address_name = table.Column<string>(nullable: false),
                     city = table.Column<string>(nullable: false),
+                    RowNumber = table.Column<byte[]>(rowVersion: true, nullable: true),
                     state = table.Column<string>(nullable: false),
                     street_address = table.Column<string>(nullable: false),
                     user_id = table.Column<int>(nullable: false),
